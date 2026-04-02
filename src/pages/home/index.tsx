@@ -2,205 +2,206 @@ import { Link } from "react-router-dom";
 import { ROUTES, COMPANY } from "../../shared/constants";
 import { Button } from "../../shared/ui";
 import { Layout } from "../../app/components/Layout";
-import { Zap, TrendingUp, Shield, Globe, Sparkles, ArrowRight } from "lucide-react";
+import {
+  Zap, TrendingUp, Shield, Globe, Sparkles, ArrowRight,
+  Wallet, Gamepad2, Landmark, CreditCard, BarChart3,
+  Users, Clock, Lock, ChevronRight
+} from "lucide-react";
+
+/* ── Wavy SVG section divider ── */
+const WaveDivider: React.FC<{ flip?: boolean; className?: string }> = ({ flip, className = "" }) => (
+  <div className={`w-full overflow-hidden leading-[0] ${flip ? "rotate-180" : ""} ${className}`}>
+    <svg
+      viewBox="0 0 1440 100"
+      preserveAspectRatio="none"
+      className="w-full h-[60px] md:h-[80px]"
+    >
+      <path
+        d="M0,40 C240,100 480,0 720,50 C960,100 1200,0 1440,40 L1440,100 L0,100 Z"
+        className="fill-current"
+      />
+    </svg>
+  </div>
+);
 
 export const HomePage: React.FC = () => {
   return (
     <Layout>
-      {/* Premium Hero Section - Blue Gradient */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-hero">
-        {/* Animated Background Elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-glow"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-glow" style={{animationDelay: '2s'}}></div>
-        
+      {/* ═══════════════ HERO ═══════════════ */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* BG effects */}
+        <div className="absolute inset-0 bg-gradient-hero" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[120px] animate-pulse-soft" />
+        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-[80px] animate-float" />
+        <div className="absolute bottom-20 left-10 w-60 h-60 bg-accent/8 rounded-full blur-[80px] animate-float-delayed" />
+
         <div className="container-max relative z-10 py-20">
-          <div className="max-w-5xl mx-auto text-center animate-slideInUp">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 mb-8">
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-              <span className="text-white font-medium tracking-widest text-sm uppercase">Premium Web3 Platform</span>
-              <div className="w-2 h-2 bg-white rounded-full"></div>
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Pill */}
+            <div className="inline-flex items-center gap-2 mb-8 px-5 py-2 rounded-full border border-accent/20 bg-accent/5">
+              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+              <span className="text-accent-light font-medium text-sm">Powered by SAC1 Blockchain</span>
             </div>
 
-            {/* Main Title */}
-            <h1 className="text-6xl md:text-8xl font-black mb-8 leading-tight text-white">
-              Explore the<br/>
-              <span className="text-accent-light">Largest NFT</span><br/>
-              Marketplace
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold mb-8 leading-[1.05] tracking-tight">
+              <span className="text-white">Bridging</span><br />
+              <span className="text-gradient">Virtual Achievements</span><br />
+              <span className="text-white">&amp; Real-World Prosperity</span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-lg md:text-xl text-white opacity-90 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Buy, Sell & Trade Cryptocurrency with enterprise-grade security. 
-              The Future Africa Project merges gaming with blockchain utility.
+            <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+              A revolutionary Web3 ecosystem powered by the SAC1 Blockchain
+              and the ${COMPANY.INVESTMENT_AMOUNT.toLocaleString()} investment
+              of {COMPANY.PARTNER_NAME}.
             </p>
 
-            {/* Milestone Card */}
-            <div className="mb-12 p-8 border border-white/30 bg-white/10 backdrop-blur-md max-w-2xl mx-auto rounded-xl">
-              <p className="text-white text-sm mb-2 opacity-90">INVESTMENT MILESTONE</p>
-              <p className="text-4xl font-bold text-white">
-                ${COMPANY.INVESTMENT_AMOUNT.toLocaleString()}<span className="text-accent-light font-light">.00 USD</span>
-              </p>
-              <p className="text-sm text-white opacity-80 mt-3">
-                Capital injection by Sable Assents Coin Corporation for FAP Episode One
-              </p>
-            </div>
-
-            {/* CTA Buttons */}
+            {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <Link to={ROUTES.EPISODE_ONE}>
-                <button className="btn-glow px-10 py-4 text-lg">
-                  Explore Now
-                  <ArrowRight className="w-5 h-5 inline ml-2" />
+                <button className="btn-glow px-8 py-4 text-base font-semibold inline-flex items-center gap-2">
+                  Explore Episode One
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
-              <Link to={ROUTES.PARTNERSHIP}>
-                <button className="px-10 py-4 text-lg font-semibold text-white border-2 border-white hover:bg-white hover:text-primary-dark transition-all duration-300 rounded-lg">
-                  Learn More
+              <Link to={ROUTES.ECOSYSTEM}>
+                <button className="btn-outline-glow px-8 py-4 text-base font-semibold inline-flex items-center gap-2">
+                  <Wallet className="w-4 h-4" />
+                  Connect SAC1 Wallet
                 </button>
               </Link>
             </div>
 
-            {/* Stats Line */}
-            <div className="flex items-center justify-center gap-8 pt-8 border-t border-white/20">
-              <div className="text-center">
-                <p className="text-white font-bold text-2xl">10K+</p>
-                <p className="text-white text-xs opacity-70 mt-1">Active Pioneers</p>
-              </div>
-              <div className="w-px h-8 bg-white/20"></div>
-              <div className="text-center">
-                <p className="text-white font-bold text-2xl">$2M+</p>
-                <p className="text-white text-xs opacity-70 mt-1">Assets Traded</p>
-              </div>
-              <div className="w-px h-8 bg-white/20"></div>
-              <div className="text-center">
-                <p className="text-white font-bold text-2xl">99.9%</p>
-                <p className="text-white text-xs opacity-70 mt-1">Uptime</p>
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-6 max-w-xl mx-auto">
+              {[
+                { value: "10K+", label: "Active Pioneers" },
+                { value: "$2M+", label: "Capital Invested" },
+                { value: "99.9%", label: "Network Uptime" },
+              ].map((stat, i) => (
+                <div key={i} className="text-center">
+                  <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
+                  <p className="text-xs md:text-sm text-slate-500 mt-1">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ MILESTONE ═══════════════ */}
+      <WaveDivider className="text-navy-light" />
+      <section className="bg-navy-light pb-24 pt-8">
+        <div className="container-max">
+          <div className="relative rounded-3xl overflow-hidden border border-navy-border/60">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-primary/5" />
+            <div className="absolute top-0 right-0 w-80 h-80 bg-accent/8 rounded-full blur-[100px]" />
+
+            <div className="relative p-10 md:p-16 text-center">
+              <p className="text-accent-light text-sm font-semibold tracking-wider uppercase mb-4">The Milestone</p>
+              <p className="text-5xl md:text-6xl font-extrabold text-white mb-2">
+                ${COMPANY.INVESTMENT_AMOUNT.toLocaleString()}
+                <span className="text-accent-light">.00 USD</span>
+              </p>
+              <p className="text-slate-400 text-lg mt-4 max-w-lg mx-auto">
+                Capital injection by {COMPANY.PARTNER_NAME} for the implementation of FAP Episode One.
+              </p>
+              <div className="flex items-center justify-center gap-3 mt-8">
+                <Link to={ROUTES.PARTNERSHIP}>
+                  <button className="btn-glow px-6 py-3 text-sm font-semibold inline-flex items-center gap-2">
+                    View Partnership
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why Choose FAP - Teal Gradient */}
-      <section className="py-24 bg-gradient-teal">
+      {/* ═══════════════ THE MISSION ═══════════════ */}
+      <WaveDivider className="text-navy" />
+      <section className="bg-navy pb-24 pt-8">
         <div className="container-max">
-          <div className="max-w-2xl mx-auto mb-20">
-            <h2 className="text-5xl md:text-6xl font-black text-white mb-6">Why Choose FAP</h2>
-            <p className="text-lg text-white opacity-90">
-              Enterprise-grade Web3 gaming infrastructure with real-world utility and institutional backing.
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left — copy */}
+            <div>
+              <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">The Mission</p>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6 leading-tight">
+                We are not just building a game — we are{" "}
+                <span className="text-gradient">coding the future</span> of African commerce.
+              </h2>
+              <p className="text-slate-400 text-lg leading-relaxed mb-8">
+                By merging high-fidelity gaming with the SAC1 POS infrastructure,
+                in-game triumphs become real-world assets.
+                Achievement → Tokenization → Utilization.
+              </p>
+              <Link to={ROUTES.ECOSYSTEM}>
+                <button className="btn-glow px-6 py-3 text-sm font-semibold inline-flex items-center gap-2">
+                  Explore Ecosystem
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Link>
+            </div>
+
+            {/* Right — value props */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {[
+                { icon: <Gamepad2 className="w-5 h-5" />, title: "Play & Earn", desc: "Every action recorded on the SAC1 ledger with instant reward payouts." },
+                { icon: <CreditCard className="w-5 h-5" />, title: "POS Bridge", desc: "Spend digital rewards at physical merchant terminals across Africa." },
+                { icon: <Shield className="w-5 h-5" />, title: "Bank-Grade Security", desc: "AES-256 encryption with blockchain-verified session integrity." },
+                { icon: <TrendingUp className="w-5 h-5" />, title: "Zero Hidden Fees", desc: "Near-zero gas, transparent economics, on-chain audits." },
+              ].map((card, i) => (
+                <div key={i} className="card-premium group">
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-4 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                    {card.icon}
+                  </div>
+                  <h3 className="font-bold text-white mb-1.5">{card.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{card.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ WHAT WE OFFER ═══════════════ */}
+      <WaveDivider className="text-navy-light" />
+      <section className="bg-navy-light pb-24 pt-8">
+        <div className="container-max">
+          <div className="text-center mb-16">
+            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">What We Offer</p>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
+              Built for the Future
+            </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+              Enterprise-grade Web3 gaming infrastructure with real-world utility
+              and institutional backing.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              {
-                icon: <Zap className="w-6 h-6" />,
-                title: "High-Performance",
-                description: "Lightning-fast gaming with real-time blockchain settlement",
-              },
-              {
-                icon: <Globe className="w-6 h-6" />,
-                title: "Real-World Utility",
-                description: "Convert digital achievements into tangible assets instantly",
-              },
-              {
-                icon: <Shield className="w-6 h-6" />,
-                title: "Bank-Grade Security",
-                description: "Military-grade encryption with immutable verification",
-              },
-              {
-                icon: <TrendingUp className="w-6 h-6" />,
-                title: "Transparent Economics",
-                description: "Real-time market data with zero hidden fees",
-              },
-              {
-                icon: <Sparkles className="w-6 h-6" />,
-                title: "Community Driven",
-                description: "Built by and for the African tech renaissance",
-              },
-              {
-                icon: <ArrowRight className="w-6 h-6" />,
-                title: "Seamless Integration",
-                description: "Connect wallets and start trading in seconds",
-              },
+              { icon: <Zap className="w-6 h-6" />, title: "High-Performance Engine", description: "Lightning-fast gaming with real-time blockchain settlement and 99.9 % uptime.", link: ROUTES.EPISODE_ONE },
+              { icon: <Globe className="w-6 h-6" />, title: "Real-World Utility", description: "Convert digital achievements into tangible assets through our POS bridge network.", link: ROUTES.SAC1_POS_BRIDGE },
+              { icon: <Shield className="w-6 h-6" />, title: "Bank-Grade Security", description: "Military-grade encryption with immutable on-chain verification for every transaction.", link: ROUTES.ECOSYSTEM },
+              { icon: <TrendingUp className="w-6 h-6" />, title: "Transparent Economics", description: "Real-time market data, on-chain audits, and zero hidden fees across the platform.", link: ROUTES.DIGITAL_ASSETS },
+              { icon: <Users className="w-6 h-6" />, title: "Community Driven", description: "Built by and for the African tech renaissance with open governance and shared rewards.", link: ROUTES.PARTNERSHIP },
+              { icon: <CreditCard className="w-6 h-6" />, title: "Seamless POS Integration", description: "Connect wallets and redeem at physical SAC1 POS merchant terminals.", link: ROUTES.SAC1_POS_BRIDGE },
             ].map((feature, index) => (
-              <div
-                key={index}
-                className="group p-8 border border-white/20 bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 rounded-xl"
-              >
-                <div className="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center text-white mb-4 group-hover:bg-white group-hover:text-primary-dark transition-colors">
-                  {feature.icon}
-                </div>
-                <h3 className="font-bold text-lg mb-2 text-white">
-                  {feature.title}
-                </h3>
-                <p className="text-white opacity-80 text-sm">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Ecosystem Explorer - Indigo/Slate */}
-      <section className="py-24 bg-gradient-indigo">
-        <div className="container-max">
-          <div className="mb-20">
-            <h2 className="text-5xl md:text-6xl font-black text-white mb-6">Explore the Ecosystem</h2>
-            <div className="w-20 h-1 bg-white"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                path: ROUTES.ECOSYSTEM,
-                title: "The Ecosystem",
-                description:
-                  "A closed-loop digital economy with the Triangle of Utility",
-              },
-              {
-                path: ROUTES.EPISODE_ONE,
-                title: "Episode One",
-                description: "Immersive gaming experience with real value creation",
-              },
-              {
-                path: ROUTES.SAC1_POS_BRIDGE,
-                title: "SAC1 POS Bridge",
-                description:
-                  "Seamless conversion from digital to real-world liquidity",
-              },
-              {
-                path: ROUTES.DIGITAL_ASSETS,
-                title: "Digital Assets",
-                description:
-                  "Create, trade, and own verifiable blockchain assets",
-              },
-              {
-                path: ROUTES.PARTNERSHIP,
-                title: "Our Partnership",
-                description: "Powered by institutional capital and expertise",
-              },
-              {
-                path: ROUTES.ROADMAP,
-                title: "The Roadmap",
-                description: "Multi-year vision for continental transformation",
-              },
-            ].map((item, index) => (
-              <Link key={index} to={item.path}>
-                <div className="p-8 border border-white/20 bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 group cursor-pointer h-full flex flex-col rounded-xl">
-                  <div className="flex-grow">
-                    <h3 className="font-bold text-xl mb-2 text-white group-hover:text-accent-light transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="text-white opacity-80 text-sm">
-                      {item.description}
-                    </p>
+              <Link key={index} to={feature.link} className="group">
+                <div className="card-premium h-full flex flex-col">
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                    {feature.icon}
                   </div>
-                  <div className="mt-6 text-white font-semibold text-sm flex items-center gap-2 group-hover:gap-3 transition-all">
-                    Explore
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <h3 className="font-bold text-lg mb-3 text-white group-hover:text-accent-light transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm leading-relaxed flex-grow">
+                    {feature.description}
+                  </p>
+                  <div className="mt-5 text-accent-light font-medium text-sm flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                    Learn more
+                    <ChevronRight className="w-4 h-4" />
                   </div>
                 </div>
               </Link>
@@ -209,43 +210,143 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Final CTA Section - Violet Gradient */}
-      <section className="py-32 bg-gradient-violet relative overflow-hidden">
-        <div className="container-max relative z-10 text-center">
-          <h2 className="text-5xl md:text-6xl font-black mb-8 text-white">
-            Ready to Transform Your Future?
-          </h2>
-          <p className="text-lg opacity-90 mb-12 max-w-2xl mx-auto text-white">
-            Join thousands of pioneers building the Web3 economy in Africa. 
-            Your digital achievements are worth real value.
-          </p>
-          <Link to={ROUTES.CONTACT}>
-            <button className="bg-white hover:bg-accent-light text-primary hover:text-primary-dark px-10 py-4 text-lg font-semibold transition-all duration-300 inline-flex items-center gap-2 rounded-lg shadow-lg">
-              Get Started
-              <Sparkles className="w-5 h-5" />
-            </button>
-          </Link>
+      {/* ═══════════════ HOW IT WORKS ═══════════════ */}
+      <WaveDivider className="text-navy" />
+      <section className="bg-navy pb-24 pt-8">
+        <div className="container-max">
+          <div className="text-center mb-16">
+            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">How It Works</p>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
+              From Sign-Up to Real Value
+            </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+              A streamlined process to get you earning and spending in the FAP ecosystem.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { step: "01", icon: <Users className="w-6 h-6" />, title: "Create Account", desc: "Sign up and verify your identity to join the Pioneer network." },
+              { step: "02", icon: <Gamepad2 className="w-6 h-6" />, title: "Play & Earn", desc: "Enter Episode One and earn SAC1 tokens through strategic gameplay." },
+              { step: "03", icon: <BarChart3 className="w-6 h-6" />, title: "Trade Assets", desc: "Trade NFTs and tokens on the marketplace with near-zero gas fees." },
+              { step: "04", icon: <Landmark className="w-6 h-6" />, title: "Redeem Value", desc: "Cash out at any partner SAC1 POS terminal or transfer to your wallet." },
+            ].map((item, i) => (
+              <div key={i} className="group relative">
+                {/* Ghost number */}
+                <div className="absolute -top-4 -left-2 text-8xl font-extrabold text-white/[0.03] select-none pointer-events-none leading-none">
+                  {item.step}
+                </div>
+
+                <div className="card-premium relative h-full">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-accent/20 bg-accent/8 mb-5">
+                    <span className="text-accent-light font-bold text-xs">STEP {item.step}</span>
+                  </div>
+
+                  <div className="w-11 h-11 rounded-xl bg-navy-mid border border-navy-border flex items-center justify-center text-accent-light mb-4 group-hover:bg-accent/10 group-hover:border-accent/30 transition-all duration-300">
+                    {item.icon}
+                  </div>
+
+                  <h3 className="font-bold text-white text-lg mb-2">{item.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Trust Metrics - Warm Gradient */}
-      <section className="py-20 bg-gradient-warm">
+      {/* ═══════════════ EXPLORE ECOSYSTEM ═══════════════ */}
+      <WaveDivider className="text-navy-light" />
+      <section className="bg-navy-light pb-24 pt-8">
         <div className="container-max">
-          <p className="text-center text-white opacity-90 mb-12 font-medium">
-            Trusted by institutional investors and powered by cutting-edge blockchain technology
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="text-center mb-16">
+            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">Explore</p>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
+              The FAP Ecosystem
+            </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+              Dive into the components that power the Future Africa Project.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { label: "Players Active", value: "10K+" },
-              { label: "Assets Traded", value: "$2M+" },
-              { label: "Uptime", value: "99.9%" },
-              { label: "Security Audits", value: "5/5" },
-            ].map((stat, index) => (
-              <div key={index} className="p-4">
-                <p className="text-white font-bold text-3xl mb-2">{stat.value}</p>
-                <p className="text-sm text-white opacity-80">{stat.label}</p>
+              { path: ROUTES.ECOSYSTEM, title: "The Ecosystem", description: "A closed-loop digital economy with the Triangle of Utility.", icon: <Globe className="w-5 h-5" /> },
+              { path: ROUTES.EPISODE_ONE, title: "Episode One", description: "Immersive strategy gaming with blockchain-settled rewards.", icon: <Gamepad2 className="w-5 h-5" /> },
+              { path: ROUTES.SAC1_POS_BRIDGE, title: "SAC1 POS Bridge", description: "The bridge from digital achievements to real-world merchant value.", icon: <CreditCard className="w-5 h-5" /> },
+              { path: ROUTES.DIGITAL_ASSETS, title: "Digital Assets", description: "Create, trade, and own verifiable NFTs on the SAC1 blockchain.", icon: <Sparkles className="w-5 h-5" /> },
+              { path: ROUTES.PARTNERSHIP, title: "Our Partnership", description: "Powered by $2M institutional capital from Sable Assents.", icon: <Landmark className="w-5 h-5" /> },
+              { path: ROUTES.ROADMAP, title: "The Roadmap", description: "Multi-year vision for continental transformation.", icon: <BarChart3 className="w-5 h-5" /> },
+            ].map((item, index) => (
+              <Link key={index} to={item.path} className="group">
+                <div className="card-premium h-full flex flex-col">
+                  <div className="w-10 h-10 rounded-lg bg-navy-mid border border-navy-border flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/10 group-hover:border-accent/30 transition-all duration-300">
+                    {item.icon}
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-light transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed flex-grow">
+                    {item.description}
+                  </p>
+                  <div className="mt-5 text-accent-light font-medium text-sm flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                    Explore
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ TRUST + CTA (combined, compact) ═══════════════ */}
+      <WaveDivider className="text-navy" />
+      <section className="bg-navy pb-24 pt-8">
+        <div className="container-max">
+          {/* Stats row */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-16">
+            {[
+              { icon: <Users className="w-5 h-5" />, value: "10K+", label: "Pioneers" },
+              { icon: <TrendingUp className="w-5 h-5" />, value: "$2M+", label: "Assets Traded" },
+              { icon: <Clock className="w-5 h-5" />, value: "99.9%", label: "Uptime" },
+              { icon: <Lock className="w-5 h-5" />, value: "5/5", label: "Audits Passed" },
+            ].map((stat, i) => (
+              <div key={i} className="card-premium text-center group">
+                <div className="w-10 h-10 rounded-xl bg-navy-mid border border-navy-border flex items-center justify-center text-accent-light mx-auto mb-3 group-hover:bg-accent/10 group-hover:border-accent/30 transition-all duration-300">
+                  {stat.icon}
+                </div>
+                <p className="text-2xl md:text-3xl font-extrabold text-white">{stat.value}</p>
+                <p className="text-xs text-slate-500 mt-1">{stat.label}</p>
               </div>
             ))}
+          </div>
+
+          {/* CTA card */}
+          <div className="relative rounded-3xl overflow-hidden border border-accent/15">
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/8 via-navy-mid to-primary/8" />
+            <div className="absolute top-0 left-1/3 w-80 h-80 bg-accent/8 rounded-full blur-[120px]" />
+
+            <div className="relative px-8 py-14 md:py-16 text-center">
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+                Ready to Join the Future?
+              </h2>
+              <p className="text-slate-400 mb-8 max-w-md mx-auto">
+                Be part of the Web3 ecosystem transforming Africa's digital economy.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link to={ROUTES.CONTACT}>
+                  <button className="btn-glow px-8 py-3.5 text-sm font-semibold inline-flex items-center gap-2">
+                    Get Started <ArrowRight className="w-4 h-4" />
+                  </button>
+                </Link>
+                <Link to={ROUTES.PARTNERSHIP}>
+                  <button className="btn-outline-glow px-8 py-3.5 text-sm font-semibold">
+                    Our Partnership
+                  </button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -256,13 +357,11 @@ export const HomePage: React.FC = () => {
 export const NotFoundPage: React.FC = () => {
   return (
     <Layout>
-      <section className="min-h-[600px] flex items-center py-20 bg-neutral-light">
+      <section className="min-h-[600px] flex items-center py-20">
         <div className="container-max text-center">
-          <h1 className="text-6xl font-bold text-neutral-dark mb-4">404</h1>
-          <h2 className="text-3xl font-bold text-neutral-dark mb-4">
-            Page Not Found
-          </h2>
-          <p className="text-lg text-neutral-dark opacity-70 mb-8">
+          <h1 className="text-8xl font-extrabold text-gradient mb-4">404</h1>
+          <h2 className="text-3xl font-bold text-white mb-4">Page Not Found</h2>
+          <p className="text-lg text-slate-400 mb-8">
             The page you're looking for doesn't exist or has been moved.
           </p>
           <Link to={ROUTES.HOME}>

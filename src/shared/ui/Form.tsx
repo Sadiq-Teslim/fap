@@ -13,25 +13,25 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full">
         {label && (
-          <label className="mb-2 block text-sm font-semibold text-neutral-dark">
+          <label className="mb-2 block text-sm font-semibold text-slate-200">
             {label}
             {props.required && <span className="ml-1 text-danger">*</span>}
           </label>
         )}
         <div className="relative">
           {icon && (
-            <div className="absolute left-4 top-3 text-neutral-dark opacity-60">
+            <div className="absolute left-4 top-3 text-slate-400">
               {icon}
             </div>
           )}
           <input
             ref={ref}
             className={cn(
-              "w-full rounded-lg border border-neutral-light px-4 py-3 transition-all duration-200",
-              "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20",
-              "placeholder:text-neutral-dark placeholder:opacity-40",
+              "w-full rounded-lg border border-navy-border bg-navy-mid px-4 py-3 text-white transition-all duration-200",
+              "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20",
+              "placeholder:text-slate-500",
               icon && "pl-12",
-              error && "border-danger focus:border-danger focus:ring-danger",
+              error && "border-danger focus:border-danger focus:ring-danger/20",
               className,
             )}
             {...props}
@@ -39,7 +39,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         </div>
         {error && <p className="mt-1 text-sm text-danger">{error}</p>}
         {helperText && !error && (
-          <p className="mt-1 text-sm text-neutral-dark opacity-60">
+          <p className="mt-1 text-sm text-slate-400">
             {helperText}
           </p>
         )}
@@ -62,7 +62,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <div className="w-full">
         {label && (
-          <label className="mb-2 block text-sm font-semibold text-neutral-dark">
+          <label className="mb-2 block text-sm font-semibold text-slate-200">
             {label}
             {props.required && <span className="ml-1 text-danger">*</span>}
           </label>
@@ -71,17 +71,17 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           ref={ref}
           rows={rows}
           className={cn(
-            "w-full rounded-lg border border-neutral-light px-4 py-3 transition-all duration-200",
-            "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20",
-            "placeholder:text-neutral-dark placeholder:opacity-40 resize-none",
-            error && "border-danger focus:border-danger focus:ring-danger",
+            "w-full rounded-lg border border-navy-border bg-navy-mid px-4 py-3 text-white transition-all duration-200",
+            "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20",
+            "placeholder:text-slate-500 resize-none",
+            error && "border-danger focus:border-danger focus:ring-danger/20",
             className,
           )}
           {...props}
         />
         {error && <p className="mt-1 text-sm text-danger">{error}</p>}
         {helperText && !error && (
-          <p className="mt-1 text-sm text-neutral-dark opacity-60">
+          <p className="mt-1 text-sm text-slate-400">
             {helperText}
           </p>
         )}
@@ -105,7 +105,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="w-full">
         {label && (
-          <label className="mb-2 block text-sm font-semibold text-neutral-dark">
+          <label className="mb-2 block text-sm font-semibold text-slate-200">
             {label}
             {props.required && <span className="ml-1 text-danger">*</span>}
           </label>
@@ -113,9 +113,9 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         <select
           ref={ref}
           className={cn(
-            "w-full rounded-lg border border-neutral-light px-4 py-3 transition-all duration-200",
-            "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20",
-            error && "border-danger focus:border-danger focus:ring-danger",
+            "w-full rounded-lg border border-navy-border bg-navy-mid px-4 py-3 text-white transition-all duration-200",
+            "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20",
+            error && "border-danger focus:border-danger focus:ring-danger/20",
             className,
           )}
           {...props}
@@ -129,7 +129,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         </select>
         {error && <p className="mt-1 text-sm text-danger">{error}</p>}
         {helperText && !error && (
-          <p className="mt-1 text-sm text-neutral-dark opacity-60">
+          <p className="mt-1 text-sm text-slate-400">
             {helperText}
           </p>
         )}

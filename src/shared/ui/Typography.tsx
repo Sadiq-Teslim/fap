@@ -9,10 +9,10 @@ interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   ({ className, variant = "primary", size = "md", ...props }, ref) => {
     const variantStyles = {
-      primary: "bg-primary bg-opacity-10 text-primary",
-      success: "bg-success bg-opacity-10 text-success",
-      warning: "bg-warning bg-opacity-10 text-warning",
-      danger: "bg-danger bg-opacity-10 text-danger",
+      primary: "bg-primary/15 text-primary-light",
+      success: "bg-success/15 text-success",
+      warning: "bg-warning/15 text-warning",
+      danger: "bg-danger/15 text-danger",
     };
 
     const sizeStyles = {
@@ -64,13 +64,10 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     if (!isVisible) return null;
 
     const typeStyles = {
-      info: "bg-blue-50 border-blue-200 text-blue-700",
-      success:
-        "bg-success bg-opacity-10 border border-success border-opacity-30 text-success",
-      warning:
-        "bg-warning bg-opacity-10 border border-warning border-opacity-30 text-warning",
-      error:
-        "bg-danger bg-opacity-10 border border-danger border-opacity-30 text-danger",
+      info: "bg-primary/10 border border-primary/30 text-primary-light",
+      success: "bg-success/10 border border-success/30 text-success",
+      warning: "bg-warning/10 border border-warning/30 text-warning",
+      error: "bg-danger/10 border border-danger/30 text-danger",
     };
 
     const handleClose = () => {
@@ -96,7 +93,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
               className="ml-auto flex-shrink-0 text-lg opacity-70 hover:opacity-100"
               onClick={handleClose}
             >
-              ×
+              &times;
             </button>
           )}
         </div>
@@ -151,7 +148,7 @@ export const Loading: React.FC<LoadingProps> = ({
     return (
       <div className="flex flex-col items-center justify-center py-12">
         {spinner}
-        {text && <p className="mt-4 text-neutral-dark">{text}</p>}
+        {text && <p className="mt-4 text-slate-300">{text}</p>}
       </div>
     );
   }
@@ -179,7 +176,7 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
     return (
       <div
         ref={ref}
-        className={cn("animate-pulse bg-neutral-light", className)}
+        className={cn("animate-pulse bg-navy-border", className)}
         style={{ width, height, borderRadius }}
         {...props}
       />
@@ -191,7 +188,7 @@ Skeleton.displayName = "Skeleton";
 
 export const SkeletonCard: React.FC = () => {
   return (
-    <div className="space-y-4 rounded-lg border border-neutral-light p-6">
+    <div className="space-y-4 rounded-lg border border-navy-border p-6">
       <Skeleton height="24px" width="60%" />
       <Skeleton height="16px" width="100%" />
       <Skeleton height="16px" width="85%" />

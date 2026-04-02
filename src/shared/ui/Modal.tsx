@@ -34,29 +34,29 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn">
       <div
         ref={modalRef}
         className={cn(
-          "w-full rounded-xl bg-white shadow-xl",
+          "w-full rounded-xl bg-navy-light border border-navy-border shadow-card",
           sizeStyles[size],
           className,
         )}
       >
         {(title || closeButton) && (
-          <div className="flex items-center justify-between border-b border-neutral-light px-6 py-4">
+          <div className="flex items-center justify-between border-b border-navy-border px-6 py-4">
             {title && (
-              <h2 className="text-xl font-semibold text-neutral-dark">
+              <h2 className="text-xl font-semibold text-white">
                 {title}
               </h2>
             )}
             {closeButton && (
               <button
                 type="button"
-                className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg hover:bg-neutral-light"
+                className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 hover:bg-navy-mid hover:text-white"
                 onClick={onClose}
               >
-                ×
+                &times;
               </button>
             )}
           </div>
@@ -91,9 +91,9 @@ export const Dialog: React.FC<DialogProps> = ({
   variant = "info",
 }) => {
   const iconStyles = {
-    info: "bg-blue-100 text-blue-600",
-    warning: "bg-warning bg-opacity-20 text-warning",
-    danger: "bg-danger bg-opacity-20 text-danger",
+    info: "bg-primary/20 text-primary-light",
+    warning: "bg-warning/20 text-warning",
+    danger: "bg-danger/20 text-danger",
   };
 
   return (
@@ -106,16 +106,16 @@ export const Dialog: React.FC<DialogProps> = ({
           )}
         >
           {variant === "info" && "!"}
-          {variant === "warning" && "⚠"}
-          {variant === "danger" && "✕"}
+          {variant === "warning" && "\u26A0"}
+          {variant === "danger" && "\u2715"}
         </div>
-        <h3 className="text-lg font-semibold text-neutral-dark">{title}</h3>
+        <h3 className="text-lg font-semibold text-white">{title}</h3>
         {description && (
-          <p className="mt-2 text-neutral-dark opacity-70">{description}</p>
+          <p className="mt-2 text-slate-400">{description}</p>
         )}
         <div className="mt-6 flex gap-3">
           <button
-            className="flex-1 rounded-lg border border-neutral-light px-4 py-2 font-semibold text-neutral-dark hover:bg-neutral-light transition-colors"
+            className="flex-1 rounded-lg border border-navy-border px-4 py-2 font-semibold text-slate-300 hover:bg-navy-mid transition-colors"
             onClick={onClose}
             disabled={isLoading}
           >
@@ -125,7 +125,7 @@ export const Dialog: React.FC<DialogProps> = ({
             className={cn(
               "flex-1 rounded-lg px-4 py-2 font-semibold text-white transition-colors",
               variant === "danger"
-                ? "bg-secondary hover:bg-orange-600"
+                ? "bg-danger hover:bg-danger/80"
                 : "bg-primary hover:bg-primary-dark",
             )}
             onClick={onConfirm}
@@ -174,7 +174,7 @@ const Toast: React.FC<ToastProps> = ({
   const typeStyles = {
     success: "bg-success text-white",
     error: "bg-danger text-white",
-    info: "bg-blue-500 text-white",
+    info: "bg-primary text-white",
     warning: "bg-warning text-white",
   };
 
@@ -202,7 +202,7 @@ const Toast: React.FC<ToastProps> = ({
           className="flex-shrink-0 text-lg opacity-70 hover:opacity-100"
           onClick={() => setIsVisible(false)}
         >
-          ×
+          &times;
         </button>
       </div>
     </div>

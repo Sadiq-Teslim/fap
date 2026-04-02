@@ -36,28 +36,28 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-navy">
       {/* Navigation */}
-      <nav className="sticky top-0 z-40 bg-white border-b border-neutral-light shadow-sm">
+      <nav className="sticky top-0 z-40 bg-navy/80 backdrop-blur-xl border-b border-navy-border/60">
         <div className="container-max flex items-center justify-between py-4">
           {/* Logo */}
-          <Link to={ROUTES.HOME} className="flex items-center gap-2">
-            <div className="text-2xl font-bold text-gradient">FAP</div>
-            <div className="hidden sm:block text-sm text-neutral-dark opacity-70">
+          <Link to={ROUTES.HOME} className="flex items-center gap-3">
+            <div className="text-2xl font-extrabold text-gradient">FAP</div>
+            <div className="hidden sm:block text-sm text-slate-500 font-medium">
               Future Africa Project
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-7">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-sm font-semibold transition-colors ${
+                className={`text-sm font-medium transition-colors duration-200 ${
                   isActive(link.path)
-                    ? "text-primary"
-                    : "text-neutral-dark hover:text-primary"
+                    ? "text-accent-light"
+                    : "text-slate-400 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -66,7 +66,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
           </div>
 
           {/* Auth Buttons */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {isAuthenticated ? (
               <Button variant="outline" size="sm" onClick={handleLogout}>
                 Logout
@@ -74,7 +74,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             ) : (
               <>
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="sm"
                   onClick={() => navigate(ROUTES.PARTNER_LOGIN)}
                 >
@@ -91,26 +91,26 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2"
+              className="lg:hidden p-2 text-slate-400 hover:text-white transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X /> : <Menu />}
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-neutral-light bg-white">
-            <div className="container-max flex flex-col gap-4 py-4">
+          <div className="lg:hidden border-t border-navy-border/60 bg-navy-light/95 backdrop-blur-xl">
+            <div className="container-max flex flex-col gap-1 py-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-sm font-semibold transition-colors ${
+                  className={`text-sm font-medium py-2.5 px-3 rounded-lg transition-colors ${
                     isActive(link.path)
-                      ? "text-primary"
-                      : "text-neutral-dark hover:text-primary"
+                      ? "text-accent-light bg-accent/10"
+                      : "text-slate-400 hover:text-white hover:bg-white/5"
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -126,46 +126,35 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
       <main className="flex-1">{children}</main>
 
       {/* Footer */}
-      <footer className="border-t border-neutral-light bg-neutral-dark text-white">
-        <div className="container-max py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <footer className="border-t border-navy-border/60 bg-navy-light">
+        <div className="container-max py-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
             {/* About */}
             <div>
-              <h3 className="font-bold text-lg mb-4">FAP</h3>
-              <p className="text-sm opacity-80">
-                Future Africa Project - Bridging virtual achievements and
-                real-world prosperity.
+              <h3 className="font-bold text-xl mb-4 text-gradient">FAP</h3>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Future Africa Project — Bridging virtual achievements and
+                real-world prosperity across the continent.
               </p>
             </div>
 
             {/* Company Info */}
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="text-sm space-y-2 opacity-80">
+              <h4 className="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Company</h4>
+              <ul className="text-sm space-y-3 text-slate-500">
                 <li>
-                  <a
-                    href={ROUTES.PARTNERSHIP}
-                    className="hover:text-primary transition"
-                  >
+                  <a href={ROUTES.PARTNERSHIP} className="hover:text-accent-light transition-colors">
                     Partnership
                   </a>
                 </li>
                 <li>
-                  <a
-                    href={ROUTES.CONTACT}
-                    className="hover:text-primary transition"
-                  >
+                  <a href={ROUTES.CONTACT} className="hover:text-accent-light transition-colors">
                     Contact
                   </a>
                 </li>
+                <li><span>{COMPANY.HEADQUARTERS}</span></li>
                 <li>
-                  <span>{COMPANY.HEADQUARTERS}</span>
-                </li>
-                <li>
-                  <a
-                    href={`mailto:${COMPANY.EMAIL}`}
-                    className="hover:text-primary transition"
-                  >
+                  <a href={`mailto:${COMPANY.EMAIL}`} className="hover:text-accent-light transition-colors">
                     {COMPANY.EMAIL}
                   </a>
                 </li>
@@ -174,29 +163,20 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
             {/* Legal */}
             <div>
-              <h4 className="font-semibold mb-4">Legal</h4>
-              <ul className="text-sm space-y-2 opacity-80">
+              <h4 className="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Legal</h4>
+              <ul className="text-sm space-y-3 text-slate-500">
                 <li>
-                  <Link
-                    to={LEGAL_LINKS.PRIVACY_POLICY}
-                    className="hover:text-primary transition"
-                  >
+                  <Link to={LEGAL_LINKS.PRIVACY_POLICY} className="hover:text-accent-light transition-colors">
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    to={LEGAL_LINKS.TERMS_OF_SERVICE}
-                    className="hover:text-primary transition"
-                  >
+                  <Link to={LEGAL_LINKS.TERMS_OF_SERVICE} className="hover:text-accent-light transition-colors">
                     Terms of Service
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    to={LEGAL_LINKS.NDPA_COMPLIANCE}
-                    className="hover:text-primary transition"
-                  >
+                  <Link to={LEGAL_LINKS.NDPA_COMPLIANCE} className="hover:text-accent-light transition-colors">
                     NDPA Compliance
                   </Link>
                 </li>
@@ -205,58 +185,43 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
             {/* Social */}
             <div>
-              <h4 className="font-semibold mb-4">Follow Us</h4>
+              <h4 className="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Follow Us</h4>
               <div className="flex gap-4">
-                <a
-                  href={SOCIAL_LINKS.TWITTER}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition"
-                >
-                  Twitter
-                </a>
-                <a
-                  href={SOCIAL_LINKS.DISCORD}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition"
-                >
-                  Discord
-                </a>
-                <a
-                  href={SOCIAL_LINKS.TELEGRAM}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition"
-                >
-                  Telegram
-                </a>
+                {[
+                  { label: "Twitter", href: SOCIAL_LINKS.TWITTER },
+                  { label: "Discord", href: SOCIAL_LINKS.DISCORD },
+                  { label: "Telegram", href: SOCIAL_LINKS.TELEGRAM },
+                ].map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-slate-500 hover:text-accent-light transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
 
           {/* Trust Bar */}
-          <div className="border-t border-white border-opacity-20 pt-8">
-            <div className="text-center text-sm opacity-70">
+          <div className="border-t border-navy-border/60 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-sm text-slate-600">
               <p>
-                Lead Partner:{" "}
-                <span className="font-semibold text-primary">
-                  {COMPANY.PARTNER_NAME}
-                </span>{" "}
-                | Funded:{" "}
-                <span className="font-semibold">
-                  {COMPANY.INVESTMENT_AMOUNT.toLocaleString()}{" "}
-                  {COMPANY.INVESTMENT_CURRENCY}
-                </span>
+                &copy; {new Date().getFullYear()} {COMPANY.NAME}. All rights reserved.
               </p>
             </div>
-          </div>
-
-          {/* Copyright */}
-          <div className="text-center text-xs opacity-60 mt-4">
-            <p>
-              © {new Date().getFullYear()} {COMPANY.NAME}. All rights reserved.
-            </p>
+            <div className="text-sm text-slate-600">
+              Lead Partner:{" "}
+              <span className="text-accent-light font-medium">{COMPANY.PARTNER_NAME}</span>
+              {" "}&middot;{" "}
+              Funded:{" "}
+              <span className="text-white font-medium">
+                ${COMPANY.INVESTMENT_AMOUNT.toLocaleString()} {COMPANY.INVESTMENT_CURRENCY}
+              </span>
+            </div>
           </div>
         </div>
       </footer>
