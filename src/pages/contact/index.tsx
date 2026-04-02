@@ -1,19 +1,14 @@
+import { useState } from "react";
 import { Layout } from "../../app/components/Layout";
-import {
-  Input,
-  Button,
-  Textarea,
-  Select,
-  useToast,
-  ToastContainer,
-} from "../../shared/ui";
+import { Input, Textarea, Select } from "../../shared/ui";
 import { COMPANY } from "../../shared/constants";
-import { Mail, MapPin, Phone, ArrowRight } from "lucide-react";
-import { useFormValidation } from "../../shared/hooks";
+import { Mail, MapPin, Phone, ArrowRight, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
 /* ── Wave divider ── */
-const WaveDivider: React.FC<{ className?: string }> = ({ className = "" }) => (
-  <div className={`w-full overflow-hidden leading-[0] ${className}`}>
+const WaveDivider: React.FC<{ fill?: string }> = ({
+  fill = "#111927",
+}) => (
+  <div className="w-full overflow-hidden leading-[0]">
     <svg
       viewBox="0 0 1440 100"
       preserveAspectRatio="none"
@@ -21,29 +16,54 @@ const WaveDivider: React.FC<{ className?: string }> = ({ className = "" }) => (
     >
       <path
         d="M0,40 C240,100 480,0 720,50 C960,100 1200,0 1440,40 L1440,100 L0,100 Z"
-        className="fill-current"
+        fill={fill}
       />
     </svg>
   </div>
 );
 
-export const ContactPage: React.FC = () => {
-  const { toasts, showToast } = useToast();
-  const { values, handleChange, handleSubmit } = useFormValidation(
-    { name: "", email: "", category: "", message: "" },
-    (values) => {
-      showToast({
-        type: "success",
-        title: "Message Sent!",
-        message: "We'll get back to you soon.",
-      });
-      console.log("Form submitted:", values);
-    },
-  );
+const FORMSPREE_URL = "https://formspree.io/f/mnjobwwk";
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    handleChange({ target: { name, value } } as any);
+export const ContactPage: React.FC = () => {
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    category: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
+    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("submitting");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setValues({ name: "", email: "", category: "", message: "" });
+      } else {
+        const data = await res.json();
+        setErrorMsg(data?.errors?.map((err: { message: string }) => err.message).join(", ") || "Something went wrong.");
+        setStatus("error");
+      }
+    } catch {
+      setErrorMsg("Network error. Please check your connection and try again.");
+      setStatus("error");
+    }
   };
 
   return (
@@ -71,8 +91,8 @@ export const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ═══ CONTACT CARDS ═══ */}
-      <WaveDivider className="text-navy-light" />
+      {/* ═══ CONTACT CARDS + FORM ═══ */}
+      <WaveDivider />
       <section className="bg-navy-light pb-24 pt-8">
         <div className="container-max">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
@@ -125,64 +145,103 @@ export const ContactPage: React.FC = () => {
                 Send Us a Message
               </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <Input
-                  label="Full Name"
-                  name="name"
-                  value={values.name}
-                  onChange={handleChange}
-                  placeholder="Your name"
-                  required
-                />
-                <Input
-                  label="Email"
-                  type="email"
-                  name="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  placeholder="your@email.com"
-                  required
-                />
-                <Select
-                  label="Category"
-                  name="category"
-                  value={values.category}
-                  onChange={handleSelectChange}
-                  options={[
-                    { value: "player", label: "Sign up for Episode One Alpha" },
-                    {
-                      value: "developer",
-                      label: "Join FAP Pioneers Internship",
-                    },
-                    {
-                      value: "partner",
-                      label: "SAC1 POS Merchant Integration",
-                    },
-                    { value: "other", label: "Other" },
-                  ]}
-                  placeholder="Select a category"
-                  required
-                />
-                <Textarea
-                  label="Message"
-                  name="message"
-                  value={values.message}
-                  onChange={handleChange}
-                  placeholder="Tell us more..."
-                  rows={5}
-                  required
-                />
+              {/* Success state */}
+              {status === "success" ? (
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-5">
+                    <CheckCircle className="w-8 h-8 text-accent-light" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    Message Sent!
+                  </h3>
+                  <p className="text-slate-400 mb-6">
+                    Thanks for reaching out. We'll get back to you soon.
+                  </p>
+                  <button
+                    onClick={() => setStatus("idle")}
+                    className="text-accent-light font-semibold text-sm hover:text-white transition-colors"
+                  >
+                    Send another message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Error banner */}
+                  {status === "error" && (
+                    <div className="flex items-start gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5">
+                      <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-red-400">{errorMsg}</p>
+                    </div>
+                  )}
 
-                <Button type="submit" size="lg" className="w-full">
-                  Send Message <ArrowRight className="w-4 h-4 ml-2 inline" />
-                </Button>
-              </form>
+                  <Input
+                    label="Full Name"
+                    name="name"
+                    value={values.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    required
+                    disabled={status === "submitting"}
+                  />
+                  <Input
+                    label="Email"
+                    type="email"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    placeholder="your@email.com"
+                    required
+                    disabled={status === "submitting"}
+                  />
+                  <Select
+                    label="Category"
+                    name="category"
+                    value={values.category}
+                    onChange={handleChange}
+                    options={[
+                      { value: "player", label: "Sign up for Episode One Alpha" },
+                      { value: "developer", label: "Join FAP Pioneers Internship" },
+                      { value: "partner", label: "SAC1 POS Merchant Integration" },
+                      { value: "other", label: "Other" },
+                    ]}
+                    placeholder="Select a category"
+                    required
+                    disabled={status === "submitting"}
+                  />
+                  <Textarea
+                    label="Message"
+                    name="message"
+                    value={values.message}
+                    onChange={handleChange}
+                    placeholder="Tell us more..."
+                    rows={5}
+                    required
+                    disabled={status === "submitting"}
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={status === "submitting"}
+                    className="btn-glow w-full px-6 py-3.5 text-sm font-semibold inline-flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {status === "submitting" ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>
       </section>
-
-      <ToastContainer toasts={toasts} />
     </Layout>
   );
 };

@@ -16,8 +16,8 @@ import {
 } from "lucide-react";
 
 /* ── Wave divider ── */
-const WaveDivider: React.FC<{ className?: string }> = ({ className = "" }) => (
-  <div className={`w-full overflow-hidden leading-[0] ${className}`}>
+const WaveDivider: React.FC<{ fill?: string }> = ({ fill = "#111927" }) => (
+  <div className="w-full overflow-hidden leading-[0]">
     <svg
       viewBox="0 0 1440 100"
       preserveAspectRatio="none"
@@ -25,7 +25,7 @@ const WaveDivider: React.FC<{ className?: string }> = ({ className = "" }) => (
     >
       <path
         d="M0,40 C240,100 480,0 720,50 C960,100 1200,0 1440,40 L1440,100 L0,100 Z"
-        className="fill-current"
+        fill={fill}
       />
     </svg>
   </div>
@@ -62,7 +62,7 @@ const EpisodeOnePageComp: React.FC = () => {
       </section>
 
       {/* ═══ NARRATIVE ═══ */}
-      <WaveDivider className="text-navy-light" />
+      <WaveDivider fill="#111927" />
       <section className="bg-navy-light pb-24 pt-8">
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -99,7 +99,7 @@ const EpisodeOnePageComp: React.FC = () => {
       </section>
 
       {/* ═══ GAME MECHANICS ═══ */}
-      <WaveDivider className="text-navy" />
+      <WaveDivider fill="#0B1121" />
       <section className="bg-navy pb-24 pt-8">
         <div className="container-max">
           <div className="text-center mb-16">
@@ -188,7 +188,7 @@ const SAC1POSBridgePageComp: React.FC = () => {
       </section>
 
       {/* ═══ HOW IT WORKS ═══ */}
-      <WaveDivider className="text-navy-light" />
+      <WaveDivider fill="#111927" />
       <section className="bg-navy-light pb-24 pt-8">
         <div className="container-max">
           <div className="text-center mb-16">
@@ -308,7 +308,7 @@ const DigitalAssetsPageComp: React.FC = () => {
       </section>
 
       {/* ═══ ASSET TYPES ═══ */}
-      <WaveDivider className="text-navy-light" />
+      <WaveDivider fill="#111927" />
       <section className="bg-navy-light pb-24 pt-8">
         <div className="container-max">
           <div className="text-center mb-16">

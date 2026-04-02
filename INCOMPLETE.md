@@ -1,6 +1,6 @@
 # FAP — Incomplete / Demo / Non-Functional Items
 
-## 1. Contact Form — no backend
+## 1. Contact Form — no backend(tbf)
 `src/pages/contact/index.tsx:40` — the form just does `console.log` and shows a success toast. Nothing is actually sent anywhere.
 
 ## 2. Partner Portal Login — fully fake auth

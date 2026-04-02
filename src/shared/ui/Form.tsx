@@ -25,13 +25,19 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             className={cn(
-              "w-full rounded-lg border border-navy-border bg-navy-mid px-4 py-3 text-white transition-all duration-200",
-              "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20",
+              "w-full rounded-lg px-4 py-3 text-white transition-all duration-200",
+              "focus:outline-none focus:ring-2 focus:ring-primary/20",
               "placeholder:text-slate-500",
               icon && "pl-12",
-              error && "border-danger focus:border-danger focus:ring-danger/20",
+              error && "ring-danger/20",
               className,
             )}
+            style={{
+              backgroundColor: "var(--navy-mid)",
+              borderWidth: "1px",
+              borderStyle: "solid",
+              borderColor: error ? "#F87171" : "var(--navy-border)",
+            }}
             {...props}
           />
         </div>
@@ -67,12 +73,18 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           ref={ref}
           rows={rows}
           className={cn(
-            "w-full rounded-lg border border-navy-border bg-navy-mid px-4 py-3 text-white transition-all duration-200",
-            "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20",
+            "w-full rounded-lg px-4 py-3 text-white transition-all duration-200",
+            "focus:outline-none focus:ring-2 focus:ring-primary/20",
             "placeholder:text-slate-500 resize-none",
-            error && "border-danger focus:border-danger focus:ring-danger/20",
+            error && "ring-danger/20",
             className,
           )}
+          style={{
+            backgroundColor: "var(--navy-mid)",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor: error ? "#F87171" : "var(--navy-border)",
+          }}
           {...props}
         />
         {error && <p className="mt-1 text-sm text-danger">{error}</p>}
@@ -110,11 +122,17 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         <select
           ref={ref}
           className={cn(
-            "w-full rounded-lg border border-navy-border bg-navy-mid px-4 py-3 text-white transition-all duration-200",
-            "focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20",
-            error && "border-danger focus:border-danger focus:ring-danger/20",
+            "w-full rounded-lg px-4 py-3 text-white transition-all duration-200",
+            "focus:outline-none focus:ring-2 focus:ring-primary/20",
+            error && "ring-danger/20",
             className,
           )}
+          style={{
+            backgroundColor: "var(--navy-mid)",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            borderColor: error ? "#F87171" : "var(--navy-border)",
+          }}
           {...props}
         >
           {placeholder && <option value="">{placeholder}</option>}

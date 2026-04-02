@@ -21,12 +21,12 @@ import {
 } from "lucide-react";
 
 /* ── Wavy SVG section divider ── */
-const WaveDivider: React.FC<{ flip?: boolean; className?: string }> = ({
+const WaveDivider: React.FC<{ fill?: string; flip?: boolean }> = ({
+  fill = "#111927",
   flip,
-  className = "",
 }) => (
   <div
-    className={`w-full overflow-hidden leading-[0] ${flip ? "rotate-180" : ""} ${className}`}
+    className={`w-full overflow-hidden leading-[0] ${flip ? "rotate-180" : ""}`}
   >
     <svg
       viewBox="0 0 1440 100"
@@ -35,7 +35,7 @@ const WaveDivider: React.FC<{ flip?: boolean; className?: string }> = ({
     >
       <path
         d="M0,40 C240,100 480,0 720,50 C960,100 1200,0 1440,40 L1440,100 L0,100 Z"
-        className="fill-current"
+        fill={fill}
       />
     </svg>
   </div>
@@ -114,7 +114,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ═══════════════ MILESTONE ═══════════════ */}
-      <WaveDivider className="text-navy-light" />
+      <WaveDivider fill="#111927" />
       <section className="bg-navy-light pb-24 pt-8">
         <div className="container-max">
           <div className="relative rounded-3xl overflow-hidden border border-navy-border/60">
@@ -147,7 +147,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ═══════════════ THE MISSION ═══════════════ */}
-      <WaveDivider className="text-navy" />
+      <WaveDivider fill="#0B1121" />
       <section className="bg-navy pb-24 pt-8">
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -214,7 +214,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ═══════════════ WHAT WE OFFER ═══════════════ */}
-      <WaveDivider className="text-navy-light" />
+      <WaveDivider fill="#111927" />
       <section className="bg-navy-light pb-24 pt-8">
         <div className="container-max">
           <div className="text-center mb-16">
@@ -298,7 +298,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ═══════════════ HOW IT WORKS ═══════════════ */}
-      <WaveDivider className="text-navy" />
+      <WaveDivider fill="#0B1121" />
       <section className="bg-navy pb-24 pt-8">
         <div className="container-max">
           <div className="text-center mb-16">
@@ -372,7 +372,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ═══════════════ EXPLORE ECOSYSTEM ═══════════════ */}
-      <WaveDivider className="text-navy-light" />
+      <WaveDivider fill="#111927" />
       <section className="bg-navy-light pb-24 pt-8">
         <div className="container-max">
           <div className="text-center mb-16">
@@ -455,7 +455,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ═══════════════ TRUST + CTA (combined, compact) ═══════════════ */}
-      <WaveDivider className="text-navy" />
+      <WaveDivider fill="#0B1121" />
       <section className="bg-navy pb-24 pt-8">
         <div className="container-max">
           {/* Stats row */}
