@@ -20,9 +20,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
         <div className="relative">
           {icon && (
-            <div className="absolute left-4 top-3 text-slate-400">
-              {icon}
-            </div>
+            <div className="absolute left-4 top-3 text-slate-400">{icon}</div>
           )}
           <input
             ref={ref}
@@ -39,9 +37,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         </div>
         {error && <p className="mt-1 text-sm text-danger">{error}</p>}
         {helperText && !error && (
-          <p className="mt-1 text-sm text-slate-400">
-            {helperText}
-          </p>
+          <p className="mt-1 text-sm text-slate-400">{helperText}</p>
         )}
       </div>
     );
@@ -81,9 +77,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         />
         {error && <p className="mt-1 text-sm text-danger">{error}</p>}
         {helperText && !error && (
-          <p className="mt-1 text-sm text-slate-400">
-            {helperText}
-          </p>
+          <p className="mt-1 text-sm text-slate-400">{helperText}</p>
         )}
       </div>
     );
@@ -101,7 +95,10 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({ className, label, error, helperText, options, placeholder, ...props }, ref) => {
+  (
+    { className, label, error, helperText, options, placeholder, ...props },
+    ref,
+  ) => {
     return (
       <div className="w-full">
         {label && (
@@ -129,9 +126,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         </select>
         {error && <p className="mt-1 text-sm text-danger">{error}</p>}
         {helperText && !error && (
-          <p className="mt-1 text-sm text-slate-400">
-            {helperText}
-          </p>
+          <p className="mt-1 text-sm text-slate-400">{helperText}</p>
         )}
       </div>
     );

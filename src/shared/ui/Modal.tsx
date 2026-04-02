@@ -46,9 +46,7 @@ export const Modal: React.FC<ModalProps> = ({
         {(title || closeButton) && (
           <div className="flex items-center justify-between border-b border-navy-border px-6 py-4">
             {title && (
-              <h2 className="text-xl font-semibold text-white">
-                {title}
-              </h2>
+              <h2 className="text-xl font-semibold text-white">{title}</h2>
             )}
             {closeButton && (
               <button
@@ -110,9 +108,7 @@ export const Dialog: React.FC<DialogProps> = ({
           {variant === "danger" && "\u2715"}
         </div>
         <h3 className="text-lg font-semibold text-white">{title}</h3>
-        {description && (
-          <p className="mt-2 text-slate-400">{description}</p>
-        )}
+        {description && <p className="mt-2 text-slate-400">{description}</p>}
         <div className="mt-6 flex gap-3">
           <button
             className="flex-1 rounded-lg border border-navy-border px-4 py-2 font-semibold text-slate-300 hover:bg-navy-mid transition-colors"

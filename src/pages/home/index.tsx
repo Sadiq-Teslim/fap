@@ -3,14 +3,31 @@ import { ROUTES, COMPANY } from "../../shared/constants";
 import { Button } from "../../shared/ui";
 import { Layout } from "../../app/components/Layout";
 import {
-  Zap, TrendingUp, Shield, Globe, Sparkles, ArrowRight,
-  Wallet, Gamepad2, Landmark, CreditCard, BarChart3,
-  Users, Clock, Lock, ChevronRight
+  Zap,
+  TrendingUp,
+  Shield,
+  Globe,
+  Sparkles,
+  ArrowRight,
+  Wallet,
+  Gamepad2,
+  Landmark,
+  CreditCard,
+  BarChart3,
+  Users,
+  Clock,
+  Lock,
+  ChevronRight,
 } from "lucide-react";
 
 /* ── Wavy SVG section divider ── */
-const WaveDivider: React.FC<{ flip?: boolean; className?: string }> = ({ flip, className = "" }) => (
-  <div className={`w-full overflow-hidden leading-[0] ${flip ? "rotate-180" : ""} ${className}`}>
+const WaveDivider: React.FC<{ flip?: boolean; className?: string }> = ({
+  flip,
+  className = "",
+}) => (
+  <div
+    className={`w-full overflow-hidden leading-[0] ${flip ? "rotate-180" : ""} ${className}`}
+  >
     <svg
       viewBox="0 0 1440 100"
       preserveAspectRatio="none"
@@ -40,19 +57,23 @@ export const HomePage: React.FC = () => {
             {/* Pill */}
             <div className="inline-flex items-center gap-2 mb-8 px-5 py-2 rounded-full border border-accent/20 bg-accent/5">
               <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-              <span className="text-accent-light font-medium text-sm">Powered by SAC1 Blockchain</span>
+              <span className="text-accent-light font-medium text-sm">
+                Powered by SAC1 Blockchain
+              </span>
             </div>
 
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold mb-8 leading-[1.05] tracking-tight">
-              <span className="text-white">Bridging</span><br />
-              <span className="text-gradient">Virtual Achievements</span><br />
+              <span className="text-white">Bridging</span>
+              <br />
+              <span className="text-gradient">Virtual Achievements</span>
+              <br />
               <span className="text-white">&amp; Real-World Prosperity</span>
             </h1>
 
             <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-              A revolutionary Web3 ecosystem powered by the SAC1 Blockchain
-              and the ${COMPANY.INVESTMENT_AMOUNT.toLocaleString()} investment
-              of {COMPANY.PARTNER_NAME}.
+              A revolutionary Web3 ecosystem powered by the SAC1 Blockchain and
+              the ${COMPANY.INVESTMENT_AMOUNT.toLocaleString()} investment of{" "}
+              {COMPANY.PARTNER_NAME}.
             </p>
 
             {/* CTAs */}
@@ -79,8 +100,12 @@ export const HomePage: React.FC = () => {
                 { value: "99.9%", label: "Network Uptime" },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
-                  <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
-                  <p className="text-xs md:text-sm text-slate-500 mt-1">{stat.label}</p>
+                  <p className="text-2xl md:text-3xl font-bold text-white">
+                    {stat.value}
+                  </p>
+                  <p className="text-xs md:text-sm text-slate-500 mt-1">
+                    {stat.label}
+                  </p>
                 </div>
               ))}
             </div>
@@ -97,13 +122,16 @@ export const HomePage: React.FC = () => {
             <div className="absolute top-0 right-0 w-80 h-80 bg-accent/8 rounded-full blur-[100px]" />
 
             <div className="relative p-10 md:p-16 text-center">
-              <p className="text-accent-light text-sm font-semibold tracking-wider uppercase mb-4">The Milestone</p>
+              <p className="text-accent-light text-sm font-semibold tracking-wider uppercase mb-4">
+                The Milestone
+              </p>
               <p className="text-5xl md:text-6xl font-extrabold text-white mb-2">
                 ${COMPANY.INVESTMENT_AMOUNT.toLocaleString()}
                 <span className="text-accent-light">.00 USD</span>
               </p>
               <p className="text-slate-400 text-lg mt-4 max-w-lg mx-auto">
-                Capital injection by {COMPANY.PARTNER_NAME} for the implementation of FAP Episode One.
+                Capital injection by {COMPANY.PARTNER_NAME} for the
+                implementation of FAP Episode One.
               </p>
               <div className="flex items-center justify-center gap-3 mt-8">
                 <Link to={ROUTES.PARTNERSHIP}>
@@ -125,14 +153,17 @@ export const HomePage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left — copy */}
             <div>
-              <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">The Mission</p>
+              <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
+                The Mission
+              </p>
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6 leading-tight">
                 We are not just building a game — we are{" "}
-                <span className="text-gradient">coding the future</span> of African commerce.
+                <span className="text-gradient">coding the future</span> of
+                African commerce.
               </h2>
               <p className="text-slate-400 text-lg leading-relaxed mb-8">
-                By merging high-fidelity gaming with the SAC1 POS infrastructure,
-                in-game triumphs become real-world assets.
+                By merging high-fidelity gaming with the SAC1 POS
+                infrastructure, in-game triumphs become real-world assets.
                 Achievement → Tokenization → Utilization.
               </p>
               <Link to={ROUTES.ECOSYSTEM}>
@@ -146,17 +177,35 @@ export const HomePage: React.FC = () => {
             {/* Right — value props */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {[
-                { icon: <Gamepad2 className="w-5 h-5" />, title: "Play & Earn", desc: "Every action recorded on the SAC1 ledger with instant reward payouts." },
-                { icon: <CreditCard className="w-5 h-5" />, title: "POS Bridge", desc: "Spend digital rewards at physical merchant terminals across Africa." },
-                { icon: <Shield className="w-5 h-5" />, title: "Bank-Grade Security", desc: "AES-256 encryption with blockchain-verified session integrity." },
-                { icon: <TrendingUp className="w-5 h-5" />, title: "Zero Hidden Fees", desc: "Near-zero gas, transparent economics, on-chain audits." },
+                {
+                  icon: <Gamepad2 className="w-5 h-5" />,
+                  title: "Play & Earn",
+                  desc: "Every action recorded on the SAC1 ledger with instant reward payouts.",
+                },
+                {
+                  icon: <CreditCard className="w-5 h-5" />,
+                  title: "POS Bridge",
+                  desc: "Spend digital rewards at physical merchant terminals across Africa.",
+                },
+                {
+                  icon: <Shield className="w-5 h-5" />,
+                  title: "Bank-Grade Security",
+                  desc: "AES-256 encryption with blockchain-verified session integrity.",
+                },
+                {
+                  icon: <TrendingUp className="w-5 h-5" />,
+                  title: "Zero Hidden Fees",
+                  desc: "Near-zero gas, transparent economics, on-chain audits.",
+                },
               ].map((card, i) => (
                 <div key={i} className="card-premium group">
                   <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-4 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
                     {card.icon}
                   </div>
                   <h3 className="font-bold text-white mb-1.5">{card.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{card.desc}</p>
+                  <p className="text-slate-500 text-sm leading-relaxed">
+                    {card.desc}
+                  </p>
                 </div>
               ))}
             </div>
@@ -169,24 +218,62 @@ export const HomePage: React.FC = () => {
       <section className="bg-navy-light pb-24 pt-8">
         <div className="container-max">
           <div className="text-center mb-16">
-            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">What We Offer</p>
+            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
+              What We Offer
+            </p>
             <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
               Built for the Future
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-              Enterprise-grade Web3 gaming infrastructure with real-world utility
-              and institutional backing.
+              Enterprise-grade Web3 gaming infrastructure with real-world
+              utility and institutional backing.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: <Zap className="w-6 h-6" />, title: "High-Performance Engine", description: "Lightning-fast gaming with real-time blockchain settlement and 99.9 % uptime.", link: ROUTES.EPISODE_ONE },
-              { icon: <Globe className="w-6 h-6" />, title: "Real-World Utility", description: "Convert digital achievements into tangible assets through our POS bridge network.", link: ROUTES.SAC1_POS_BRIDGE },
-              { icon: <Shield className="w-6 h-6" />, title: "Bank-Grade Security", description: "Military-grade encryption with immutable on-chain verification for every transaction.", link: ROUTES.ECOSYSTEM },
-              { icon: <TrendingUp className="w-6 h-6" />, title: "Transparent Economics", description: "Real-time market data, on-chain audits, and zero hidden fees across the platform.", link: ROUTES.DIGITAL_ASSETS },
-              { icon: <Users className="w-6 h-6" />, title: "Community Driven", description: "Built by and for the African tech renaissance with open governance and shared rewards.", link: ROUTES.PARTNERSHIP },
-              { icon: <CreditCard className="w-6 h-6" />, title: "Seamless POS Integration", description: "Connect wallets and redeem at physical SAC1 POS merchant terminals.", link: ROUTES.SAC1_POS_BRIDGE },
+              {
+                icon: <Zap className="w-6 h-6" />,
+                title: "High-Performance Engine",
+                description:
+                  "Lightning-fast gaming with real-time blockchain settlement and 99.9 % uptime.",
+                link: ROUTES.EPISODE_ONE,
+              },
+              {
+                icon: <Globe className="w-6 h-6" />,
+                title: "Real-World Utility",
+                description:
+                  "Convert digital achievements into tangible assets through our POS bridge network.",
+                link: ROUTES.SAC1_POS_BRIDGE,
+              },
+              {
+                icon: <Shield className="w-6 h-6" />,
+                title: "Bank-Grade Security",
+                description:
+                  "Military-grade encryption with immutable on-chain verification for every transaction.",
+                link: ROUTES.ECOSYSTEM,
+              },
+              {
+                icon: <TrendingUp className="w-6 h-6" />,
+                title: "Transparent Economics",
+                description:
+                  "Real-time market data, on-chain audits, and zero hidden fees across the platform.",
+                link: ROUTES.DIGITAL_ASSETS,
+              },
+              {
+                icon: <Users className="w-6 h-6" />,
+                title: "Community Driven",
+                description:
+                  "Built by and for the African tech renaissance with open governance and shared rewards.",
+                link: ROUTES.PARTNERSHIP,
+              },
+              {
+                icon: <CreditCard className="w-6 h-6" />,
+                title: "Seamless POS Integration",
+                description:
+                  "Connect wallets and redeem at physical SAC1 POS merchant terminals.",
+                link: ROUTES.SAC1_POS_BRIDGE,
+              },
             ].map((feature, index) => (
               <Link key={index} to={feature.link} className="group">
                 <div className="card-premium h-full flex flex-col">
@@ -215,21 +302,44 @@ export const HomePage: React.FC = () => {
       <section className="bg-navy pb-24 pt-8">
         <div className="container-max">
           <div className="text-center mb-16">
-            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">How It Works</p>
+            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
+              How It Works
+            </p>
             <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
               From Sign-Up to Real Value
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-              A streamlined process to get you earning and spending in the FAP ecosystem.
+              A streamlined process to get you earning and spending in the FAP
+              ecosystem.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { step: "01", icon: <Users className="w-6 h-6" />, title: "Create Account", desc: "Sign up and verify your identity to join the Pioneer network." },
-              { step: "02", icon: <Gamepad2 className="w-6 h-6" />, title: "Play & Earn", desc: "Enter Episode One and earn SAC1 tokens through strategic gameplay." },
-              { step: "03", icon: <BarChart3 className="w-6 h-6" />, title: "Trade Assets", desc: "Trade NFTs and tokens on the marketplace with near-zero gas fees." },
-              { step: "04", icon: <Landmark className="w-6 h-6" />, title: "Redeem Value", desc: "Cash out at any partner SAC1 POS terminal or transfer to your wallet." },
+              {
+                step: "01",
+                icon: <Users className="w-6 h-6" />,
+                title: "Create Account",
+                desc: "Sign up and verify your identity to join the Pioneer network.",
+              },
+              {
+                step: "02",
+                icon: <Gamepad2 className="w-6 h-6" />,
+                title: "Play & Earn",
+                desc: "Enter Episode One and earn SAC1 tokens through strategic gameplay.",
+              },
+              {
+                step: "03",
+                icon: <BarChart3 className="w-6 h-6" />,
+                title: "Trade Assets",
+                desc: "Trade NFTs and tokens on the marketplace with near-zero gas fees.",
+              },
+              {
+                step: "04",
+                icon: <Landmark className="w-6 h-6" />,
+                title: "Redeem Value",
+                desc: "Cash out at any partner SAC1 POS terminal or transfer to your wallet.",
+              },
             ].map((item, i) => (
               <div key={i} className="group relative">
                 {/* Ghost number */}
@@ -239,15 +349,21 @@ export const HomePage: React.FC = () => {
 
                 <div className="card-premium relative h-full">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-accent/20 bg-accent/8 mb-5">
-                    <span className="text-accent-light font-bold text-xs">STEP {item.step}</span>
+                    <span className="text-accent-light font-bold text-xs">
+                      STEP {item.step}
+                    </span>
                   </div>
 
                   <div className="w-11 h-11 rounded-xl bg-navy-mid border border-navy-border flex items-center justify-center text-accent-light mb-4 group-hover:bg-accent/10 group-hover:border-accent/30 transition-all duration-300">
                     {item.icon}
                   </div>
 
-                  <h3 className="font-bold text-white text-lg mb-2">{item.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                  <h3 className="font-bold text-white text-lg mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -260,7 +376,9 @@ export const HomePage: React.FC = () => {
       <section className="bg-navy-light pb-24 pt-8">
         <div className="container-max">
           <div className="text-center mb-16">
-            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">Explore</p>
+            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
+              Explore
+            </p>
             <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
               The FAP Ecosystem
             </h2>
@@ -271,12 +389,48 @@ export const HomePage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { path: ROUTES.ECOSYSTEM, title: "The Ecosystem", description: "A closed-loop digital economy with the Triangle of Utility.", icon: <Globe className="w-5 h-5" /> },
-              { path: ROUTES.EPISODE_ONE, title: "Episode One", description: "Immersive strategy gaming with blockchain-settled rewards.", icon: <Gamepad2 className="w-5 h-5" /> },
-              { path: ROUTES.SAC1_POS_BRIDGE, title: "SAC1 POS Bridge", description: "The bridge from digital achievements to real-world merchant value.", icon: <CreditCard className="w-5 h-5" /> },
-              { path: ROUTES.DIGITAL_ASSETS, title: "Digital Assets", description: "Create, trade, and own verifiable NFTs on the SAC1 blockchain.", icon: <Sparkles className="w-5 h-5" /> },
-              { path: ROUTES.PARTNERSHIP, title: "Our Partnership", description: "Powered by $2M institutional capital from Sable Assents.", icon: <Landmark className="w-5 h-5" /> },
-              { path: ROUTES.ROADMAP, title: "The Roadmap", description: "Multi-year vision for continental transformation.", icon: <BarChart3 className="w-5 h-5" /> },
+              {
+                path: ROUTES.ECOSYSTEM,
+                title: "The Ecosystem",
+                description:
+                  "A closed-loop digital economy with the Triangle of Utility.",
+                icon: <Globe className="w-5 h-5" />,
+              },
+              {
+                path: ROUTES.EPISODE_ONE,
+                title: "Episode One",
+                description:
+                  "Immersive strategy gaming with blockchain-settled rewards.",
+                icon: <Gamepad2 className="w-5 h-5" />,
+              },
+              {
+                path: ROUTES.SAC1_POS_BRIDGE,
+                title: "SAC1 POS Bridge",
+                description:
+                  "The bridge from digital achievements to real-world merchant value.",
+                icon: <CreditCard className="w-5 h-5" />,
+              },
+              {
+                path: ROUTES.DIGITAL_ASSETS,
+                title: "Digital Assets",
+                description:
+                  "Create, trade, and own verifiable NFTs on the SAC1 blockchain.",
+                icon: <Sparkles className="w-5 h-5" />,
+              },
+              {
+                path: ROUTES.PARTNERSHIP,
+                title: "Our Partnership",
+                description:
+                  "Powered by $2M institutional capital from Sable Assents.",
+                icon: <Landmark className="w-5 h-5" />,
+              },
+              {
+                path: ROUTES.ROADMAP,
+                title: "The Roadmap",
+                description:
+                  "Multi-year vision for continental transformation.",
+                icon: <BarChart3 className="w-5 h-5" />,
+              },
             ].map((item, index) => (
               <Link key={index} to={item.path} className="group">
                 <div className="card-premium h-full flex flex-col">
@@ -307,16 +461,34 @@ export const HomePage: React.FC = () => {
           {/* Stats row */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-16">
             {[
-              { icon: <Users className="w-5 h-5" />, value: "10K+", label: "Pioneers" },
-              { icon: <TrendingUp className="w-5 h-5" />, value: "$2M+", label: "Assets Traded" },
-              { icon: <Clock className="w-5 h-5" />, value: "99.9%", label: "Uptime" },
-              { icon: <Lock className="w-5 h-5" />, value: "5/5", label: "Audits Passed" },
+              {
+                icon: <Users className="w-5 h-5" />,
+                value: "10K+",
+                label: "Pioneers",
+              },
+              {
+                icon: <TrendingUp className="w-5 h-5" />,
+                value: "$2M+",
+                label: "Assets Traded",
+              },
+              {
+                icon: <Clock className="w-5 h-5" />,
+                value: "99.9%",
+                label: "Uptime",
+              },
+              {
+                icon: <Lock className="w-5 h-5" />,
+                value: "5/5",
+                label: "Audits Passed",
+              },
             ].map((stat, i) => (
               <div key={i} className="card-premium text-center group">
                 <div className="w-10 h-10 rounded-xl bg-navy-mid border border-navy-border flex items-center justify-center text-accent-light mx-auto mb-3 group-hover:bg-accent/10 group-hover:border-accent/30 transition-all duration-300">
                   {stat.icon}
                 </div>
-                <p className="text-2xl md:text-3xl font-extrabold text-white">{stat.value}</p>
+                <p className="text-2xl md:text-3xl font-extrabold text-white">
+                  {stat.value}
+                </p>
                 <p className="text-xs text-slate-500 mt-1">{stat.label}</p>
               </div>
             ))}
@@ -332,7 +504,8 @@ export const HomePage: React.FC = () => {
                 Ready to Join the Future?
               </h2>
               <p className="text-slate-400 mb-8 max-w-md mx-auto">
-                Be part of the Web3 ecosystem transforming Africa's digital economy.
+                Be part of the Web3 ecosystem transforming Africa's digital
+                economy.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link to={ROUTES.CONTACT}>
