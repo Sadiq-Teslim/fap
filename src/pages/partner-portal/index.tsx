@@ -1,10 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Input, Button, Alert } from "../../shared/ui";
+import { Input, Button, Alert } from "../../shared/ui";
 import { ROUTES, COMPANY } from "../../shared/constants";
 import { useFormValidation } from "../../shared/hooks";
-import { Lock, AlertCircle } from "lucide-react";
+import {
+  Lock,
+  AlertCircle,
+  TrendingUp,
+  DollarSign,
+  CreditCard,
+  Users,
+  CheckCircle,
+  Clock,
+  BarChart3,
+  Activity,
+  Wallet,
+  FileText,
+  Download,
+  Shield,
+} from "lucide-react";
 
+/* ═════════════════════════════════════════════════
+   PARTNER LOGIN PAGE
+   ═════════════════════════════════════════════════ */
 const PartnerLoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -35,7 +53,7 @@ const PartnerLoginPage: React.FC = () => {
         } else {
           setLoginError("Invalid credentials");
         }
-      } catch (error) {
+      } catch {
         setLoginError("Login failed. Please try again.");
       } finally {
         setIsLoading(false);
@@ -49,12 +67,18 @@ const PartnerLoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-navy flex items-center justify-center p-4">
-      <Card variant="elevated" className="w-full max-w-md">
+    <div className="min-h-screen bg-navy flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background orbs */}
+      <div className="absolute top-20 left-20 w-80 h-80 bg-accent/5 rounded-full blur-[120px] animate-float" />
+      <div className="absolute bottom-20 right-20 w-72 h-72 bg-primary/5 rounded-full blur-[100px] animate-float-delayed" />
+
+      <div className="card-premium w-full max-w-md !p-8 relative">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="text-4xl font-bold text-gradient mb-4">FAP</div>
-          <h1 className="text-2xl font-bold text-white mb-2">Partner Portal</h1>
+          <h1 className="text-2xl font-extrabold text-white mb-2">
+            Partner Portal
+          </h1>
           <p className="text-slate-400">
             Strategic Transparency for the Future of Africa
           </p>
@@ -103,7 +127,7 @@ const PartnerLoginPage: React.FC = () => {
             />
             <button
               type="button"
-              className="absolute right-3 top-10 text-sm text-primary-light hover:text-white"
+              className="absolute right-3 top-10 text-sm text-accent-light hover:text-white transition-colors"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? "Hide" : "Show"}
@@ -134,12 +158,15 @@ const PartnerLoginPage: React.FC = () => {
         </form>
 
         {/* Footer Note */}
-        <div className="mt-8 p-4 bg-primary/10 rounded-lg border border-primary/20">
-          <p className="text-xs text-primary-light">
-            <strong>Note:</strong> This portal is strictly reserved for
-            Authorized Lead Partners. All access is logged and encrypted via the
-            SAC1 Blockchain Security Protocol.
-          </p>
+        <div className="mt-8 p-4 rounded-xl border border-accent/20 bg-accent/5">
+          <div className="flex items-start gap-3">
+            <Shield className="w-5 h-5 text-accent-light flex-shrink-0 mt-0.5" />
+            <p className="text-xs text-accent-light/80">
+              <strong className="text-accent-light">Note:</strong> This portal
+              is strictly reserved for Authorized Lead Partners. All access is
+              logged and encrypted via the SAC1 Blockchain Security Protocol.
+            </p>
+          </div>
         </div>
 
         {/* Company Info */}
@@ -147,31 +174,34 @@ const PartnerLoginPage: React.FC = () => {
           <p>{COMPANY.NAME}</p>
           <p>Lead Partner: {COMPANY.PARTNER_NAME}</p>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };
 
+/* ═════════════════════════════════════════════════
+   PARTNER DASHBOARD PAGE
+   ═════════════════════════════════════════════════ */
 const PartnerDashboardPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
     "overview" | "investment" | "metrics" | "reports"
   >("overview");
 
   const tabs = [
-    { id: "overview", label: "Overview" },
-    { id: "investment", label: "Investment Tracking" },
-    { id: "metrics", label: "Metrics" },
-    { id: "reports", label: "Reports" },
+    { id: "overview", label: "Overview", icon: <BarChart3 className="w-4 h-4" /> },
+    { id: "investment", label: "Investment", icon: <DollarSign className="w-4 h-4" /> },
+    { id: "metrics", label: "Metrics", icon: <Activity className="w-4 h-4" /> },
+    { id: "reports", label: "Reports", icon: <FileText className="w-4 h-4" /> },
   ];
 
   return (
     <div className="min-h-screen bg-navy">
       {/* Header */}
-      <div className="bg-navy-light border-b border-navy-border sticky top-0 z-10">
+      <div className="bg-navy-light border-b border-navy-border sticky top-0 z-10 backdrop-blur-md bg-navy-light/90">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-white">
+              <h1 className="text-3xl font-extrabold text-white">
                 Partner Dashboard
               </h1>
               <p className="text-slate-400 mt-1">
@@ -179,13 +209,13 @@ const PartnerDashboardPage: React.FC = () => {
               </p>
             </div>
             <div className="flex items-center gap-4">
-              <div className="text-right">
+              <div className="text-right hidden sm:block">
                 <p className="text-sm text-slate-400">Lead Partner</p>
                 <p className="font-semibold text-white">
                   {COMPANY.PARTNER_NAME}
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-bold">
+              <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light font-bold">
                 SA
               </div>
             </div>
@@ -194,17 +224,18 @@ const PartnerDashboardPage: React.FC = () => {
 
         {/* Tabs */}
         <div className="border-t border-navy-border">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-1">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`py-4 font-semibold transition-all ${
+                className={`py-4 px-4 font-semibold transition-all duration-300 inline-flex items-center gap-2 text-sm ${
                   activeTab === tab.id
-                    ? "text-primary-light border-b-2 border-primary"
+                    ? "text-accent-light border-b-2 border-accent"
                     : "text-slate-400 hover:text-white"
                 }`}
               >
+                {tab.icon}
                 {tab.label}
               </button>
             ))}
@@ -223,7 +254,15 @@ const PartnerDashboardPage: React.FC = () => {
   );
 };
 
+/* ── Overview Tab ── */
 const OverviewTab: React.FC = () => {
+  const statIcons = [
+    <DollarSign className="w-6 h-6" />,
+    <TrendingUp className="w-6 h-6" />,
+    <CreditCard className="w-6 h-6" />,
+    <Users className="w-6 h-6" />,
+  ];
+
   return (
     <div className="space-y-6">
       <Alert type="success" title="Project Status" className="mb-6">
@@ -232,29 +271,34 @@ const OverviewTab: React.FC = () => {
         </p>
       </Alert>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {[
           { label: "Total Investment", value: "$2,000,000", status: "active" },
           { label: "Disbursed to Date", value: "$700,000", status: "pending" },
           { label: "POS Terminals", value: "50 Active", status: "active" },
           { label: "Registered Pioneers", value: "2,500+", status: "active" },
         ].map((stat, index) => (
-          <Card key={index} variant="elevated">
-            <p className="text-sm text-slate-400 mb-2">{stat.label}</p>
-            <p className="text-2xl font-bold text-primary-light mb-3">
+          <div key={index} className="card-premium group">
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-11 h-11 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                {statIcons[index]}
+              </div>
+              <span
+                className={`badge text-xs ${stat.status === "active" ? "badge-success" : "badge-warning"}`}
+              >
+                {stat.status}
+              </span>
+            </div>
+            <p className="text-sm text-slate-400 mb-1">{stat.label}</p>
+            <p className="text-2xl font-extrabold text-white group-hover:text-accent-light transition-colors">
               {stat.value}
             </p>
-            <span
-              className={`badge text-xs ${stat.status === "active" ? "badge-success" : "badge-warning"}`}
-            >
-              {stat.status}
-            </span>
-          </Card>
+          </div>
         ))}
       </div>
 
-      <Card variant="elevated">
-        <h3 className="font-bold text-lg mb-4 text-white">Key Milestones</h3>
+      <div className="card-premium">
+        <h3 className="font-bold text-lg mb-6 text-white">Key Milestones</h3>
         <div className="space-y-4">
           {[
             {
@@ -275,130 +319,194 @@ const OverviewTab: React.FC = () => {
           ].map((item, index) => (
             <div
               key={index}
-              className="flex items-center justify-between pb-4 border-b border-navy-border last:border-0"
+              className="flex items-center justify-between pb-4 border-b border-navy-border last:border-0 last:pb-0"
             >
-              <div>
-                <p className="font-semibold text-white">{item.milestone}</p>
-                <p className="text-sm text-slate-400">{item.date}</p>
+              <div className="flex items-center gap-3">
+                <div className="flex-shrink-0">
+                  {item.status === "complete" ? (
+                    <CheckCircle className="w-5 h-5 text-accent-light" />
+                  ) : (
+                    <Clock className="w-5 h-5 text-warning" />
+                  )}
+                </div>
+                <div>
+                  <p className="font-semibold text-white">{item.milestone}</p>
+                  <p className="text-sm text-slate-400">{item.date}</p>
+                </div>
               </div>
               <span
                 className={`badge text-xs ${item.status === "complete" ? "badge-success" : item.status === "in_progress" ? "badge-warning" : "badge-primary"}`}
               >
-                {item.status}
+                {item.status === "complete"
+                  ? "Complete"
+                  : item.status === "in_progress"
+                    ? "In Progress"
+                    : "Pending"}
               </span>
             </div>
           ))}
         </div>
-      </Card>
+      </div>
     </div>
   );
 };
 
+/* ── Investment Tab ── */
 const InvestmentTab: React.FC = () => {
+  const items = [
+    { category: "Development", amount: 500000, allocated: 2000000 },
+    { category: "Infrastructure", amount: 150000, allocated: 2000000 },
+    { category: "Marketing", amount: 50000, allocated: 2000000 },
+  ];
+
+  const totalDisbursed = items.reduce((sum, item) => sum + item.amount, 0);
+
   return (
-    <Card variant="elevated">
-      <h3 className="font-bold text-lg mb-6 text-white">
-        Investment Disbursement Tracking
-      </h3>
-      <div className="space-y-4">
-        {[
-          { category: "Development", amount: 500000, allocated: 2000000 },
-          { category: "Infrastructure", amount: 150000, allocated: 2000000 },
-          { category: "Marketing", amount: 50000, allocated: 2000000 },
-        ].map((item, index) => (
-          <div key={index}>
-            <div className="flex justify-between mb-2">
-              <p className="font-semibold text-white">{item.category}</p>
-              <p className="text-primary-light font-bold">
-                ${item.amount.toLocaleString()}
+    <div className="space-y-6">
+      {/* Summary cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="card-premium group">
+          <p className="text-sm text-slate-400 mb-1">Total Commitment</p>
+          <p className="text-2xl font-extrabold text-white">$2,000,000</p>
+        </div>
+        <div className="card-premium group">
+          <p className="text-sm text-slate-400 mb-1">Total Disbursed</p>
+          <p className="text-2xl font-extrabold text-accent-light">
+            ${totalDisbursed.toLocaleString()}
+          </p>
+        </div>
+        <div className="card-premium group">
+          <p className="text-sm text-slate-400 mb-1">Remaining</p>
+          <p className="text-2xl font-extrabold text-white">
+            ${(2000000 - totalDisbursed).toLocaleString()}
+          </p>
+        </div>
+      </div>
+
+      {/* Breakdown */}
+      <div className="card-premium">
+        <h3 className="font-bold text-lg mb-6 text-white">
+          Investment Disbursement Tracking
+        </h3>
+        <div className="space-y-6">
+          {items.map((item, index) => (
+            <div key={index}>
+              <div className="flex justify-between mb-2">
+                <p className="font-semibold text-white">{item.category}</p>
+                <p className="text-accent-light font-bold">
+                  ${item.amount.toLocaleString()}
+                </p>
+              </div>
+              <div className="w-full bg-navy-mid rounded-full h-2.5 overflow-hidden">
+                <div
+                  className="bg-gradient-to-r from-accent to-primary rounded-full h-2.5 transition-all duration-500"
+                  style={{
+                    width: `${(item.amount / item.allocated) * 100}%`,
+                  }}
+                />
+              </div>
+              <p className="text-xs text-slate-500 mt-1">
+                {((item.amount / item.allocated) * 100).toFixed(1)}% of total
               </p>
             </div>
-            <div className="w-full bg-navy-mid rounded-full h-2">
-              <div
-                className="bg-primary rounded-full h-2 transition-all"
-                style={{ width: `${(item.amount / item.allocated) * 100}%` }}
-              />
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </Card>
+    </div>
   );
 };
 
+/* ── Metrics Tab ── */
 const MetricsTab: React.FC = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <Card variant="elevated">
-        <h3 className="font-bold text-lg mb-4 text-white">
-          SAC1 Network Metrics
-        </h3>
-        <div className="space-y-3">
-          <div className="flex justify-between">
-            <span className="text-slate-300">Transaction Volume</span>
-            <span className="font-bold text-primary-light">125,430</span>
+      <div className="card-premium">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light">
+            <Activity className="w-5 h-5" />
           </div>
-          <div className="flex justify-between">
-            <span className="text-slate-300">POS Velocity</span>
-            <span className="font-bold text-success">High</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-slate-300">Liquidity Health</span>
-            <span className="font-bold text-success">97%</span>
-          </div>
+          <h3 className="font-bold text-lg text-white">SAC1 Network Metrics</h3>
         </div>
-      </Card>
+        <div className="space-y-4">
+          {[
+            { label: "Transaction Volume", value: "125,430", color: "text-accent-light" },
+            { label: "POS Velocity", value: "High", color: "text-green-400" },
+            { label: "Liquidity Health", value: "97%", color: "text-green-400" },
+          ].map((metric, i) => (
+            <div
+              key={i}
+              className="flex justify-between items-center pb-4 border-b border-navy-border last:border-0 last:pb-0"
+            >
+              <span className="text-slate-300">{metric.label}</span>
+              <span className={`font-bold ${metric.color}`}>{metric.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
-      <Card variant="elevated">
-        <h3 className="font-bold text-lg mb-4 text-white">Community Growth</h3>
-        <div className="space-y-3">
-          <div className="flex justify-between">
-            <span className="text-slate-300">SAC1 Wallets</span>
-            <span className="font-bold text-primary-light">2,500</span>
+      <div className="card-premium">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light">
+            <Wallet className="w-5 h-5" />
           </div>
-          <div className="flex justify-between">
-            <span className="text-slate-300">NFTs Minted</span>
-            <span className="font-bold text-primary-light">12,340</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-slate-300">Growth Rate</span>
-            <span className="font-bold text-success">+25% MoM</span>
-          </div>
+          <h3 className="font-bold text-lg text-white">Community Growth</h3>
         </div>
-      </Card>
+        <div className="space-y-4">
+          {[
+            { label: "SAC1 Wallets", value: "2,500", color: "text-accent-light" },
+            { label: "NFTs Minted", value: "12,340", color: "text-accent-light" },
+            { label: "Growth Rate", value: "+25% MoM", color: "text-green-400" },
+          ].map((metric, i) => (
+            <div
+              key={i}
+              className="flex justify-between items-center pb-4 border-b border-navy-border last:border-0 last:pb-0"
+            >
+              <span className="text-slate-300">{metric.label}</span>
+              <span className={`font-bold ${metric.color}`}>{metric.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
+/* ── Reports Tab ── */
 const ReportsTab: React.FC = () => {
   return (
-    <Card variant="elevated">
-      <h3 className="font-bold text-lg mb-6 text-white">
-        Monthly Progress Reports
-      </h3>
+    <div className="card-premium">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light">
+          <FileText className="w-5 h-5" />
+        </div>
+        <h3 className="font-bold text-lg text-white">Monthly Progress Reports</h3>
+      </div>
       <div className="space-y-3">
         {[
-          { month: "March 2026", status: "Available", link: "#" },
-          { month: "February 2026", status: "Available", link: "#" },
-          { month: "January 2026", status: "Available", link: "#" },
+          { month: "March 2026", status: "Available" },
+          { month: "February 2026", status: "Available" },
+          { month: "January 2026", status: "Available" },
         ].map((report, index) => (
           <div
             key={index}
-            className="flex items-center justify-between p-4 border border-navy-border rounded-lg hover:border-primary/40 transition-colors"
+            className="flex items-center justify-between p-4 rounded-xl border border-navy-border bg-navy-mid/40 hover:border-accent/30 hover:bg-navy-mid/60 transition-all duration-300 group"
           >
             <div>
-              <p className="font-semibold text-white">{report.month}</p>
+              <p className="font-semibold text-white group-hover:text-accent-light transition-colors">
+                {report.month}
+              </p>
               <p className="text-sm text-slate-400">
                 Financial & Technical Report
               </p>
             </div>
-            <Button variant="outline" size="sm">
+            <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-accent/20 bg-accent/5 text-accent-light text-sm font-semibold hover:bg-accent/10 hover:border-accent/40 transition-all duration-300">
+              <Download className="w-4 h-4" />
               Download
-            </Button>
+            </button>
           </div>
         ))}
       </div>
-    </Card>
+    </div>
   );
 };
 
