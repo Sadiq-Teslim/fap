@@ -47,7 +47,12 @@ export const useAuthStore = create<AuthState>((set) => {
       // Skip verification if no token stored
       const token = authService.getAccessToken();
       if (!token) {
-        set({ user: null, token: null, isAuthenticated: false, isLoading: false });
+        set({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+          isLoading: false,
+        });
         return;
       }
 
