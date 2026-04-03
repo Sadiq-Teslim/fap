@@ -71,9 +71,8 @@ export const HomePage: React.FC = () => {
             </h1>
 
             <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-              A revolutionary Web3 ecosystem powered by the SAC1 Blockchain and
-              the ${COMPANY.INVESTMENT_AMOUNT.toLocaleString()} investment of{" "}
-              {COMPANY.PARTNER_NAME}.
+              A revolutionary Web3 ecosystem powered by SAC1 Blockchain from
+              SableAssent Coin Corporation
             </p>
 
             {/* CTAs */}
