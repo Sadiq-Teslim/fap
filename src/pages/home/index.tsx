@@ -421,7 +421,7 @@ export const HomePage: React.FC = () => {
                 path: ROUTES.PARTNERSHIP,
                 title: "Our Partnership",
                 description:
-                  "Powered by $2M institutional capital from Sable Assents.",
+                  "Powered by $2M institutional capital from SableAssent.",
                 icon: <Landmark className="w-5 h-5" />,
               },
               {

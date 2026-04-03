@@ -55,7 +55,7 @@ export const ROUTES = {
 // Company Information
 export const COMPANY = {
   NAME: "Bentech Synergy Technology Ltd",
-  PARTNER_NAME: "Sable Assents Coin Corporation",
+  PARTNER_NAME: "SableAssent Coin Corporation",
   HEADQUARTERS: "10 Ijaye Road Ogba, Ikeja, Lagos",
   EMAIL: "contact@fap-game.com",
   WEBSITE: "https://fap-game.com",
@@ -90,7 +90,7 @@ export const NFT_CONFIG = {
 
 // SAC1 Token Configuration
 export const SAC1_CONFIG = {
-  NAME: "Sable Assents Coin",
+  NAME: "SableAssent Coin",
   SYMBOL: "SAC1",
   DECIMALS: 18,
   GAS_NETWORK: "low",

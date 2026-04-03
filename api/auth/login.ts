@@ -3,7 +3,10 @@ import bcrypt from "bcryptjs";
 import { SignJWT } from "jose";
 
 // Rate limiting: track failed attempts per IP (in-memory, resets on cold start)
-const failedAttempts = new Map<string, { count: number; lastAttempt: number }>();
+const failedAttempts = new Map<
+  string,
+  { count: number; lastAttempt: number }
+>();
 const MAX_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
@@ -13,7 +16,10 @@ function getClientIp(req: VercelRequest): string {
   return req.socket?.remoteAddress || "unknown";
 }
 
-function isRateLimited(ip: string): { limited: boolean; retryAfterSecs?: number } {
+function isRateLimited(ip: string): {
+  limited: boolean;
+  retryAfterSecs?: number;
+} {
   const record = failedAttempts.get(ip);
   if (!record || record.count < MAX_ATTEMPTS) return { limited: false };
 
@@ -49,7 +55,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") {
-    return res.status(405).json({ error: { code: "METHOD_NOT_ALLOWED", message: "POST only" } });
+    return res
+      .status(405)
+      .json({ error: { code: "METHOD_NOT_ALLOWED", message: "POST only" } });
   }
 
   const ip = getClientIp(req);
@@ -70,7 +78,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Validate input
   if (!email || !password) {
     return res.status(400).json({
-      error: { code: "VALIDATION_ERROR", message: "Email and password are required." },
+      error: {
+        code: "VALIDATION_ERROR",
+        message: "Email and password are required.",
+      },
     });
   }
 
@@ -84,12 +95,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!partnerEmail || !partnerPasswordHash || !jwtSecret) {
     console.error("Missing required environment variables for auth");
     return res.status(500).json({
-      error: { code: "SERVER_ERROR", message: "Authentication service is misconfigured." },
+      error: {
+        code: "SERVER_ERROR",
+        message: "Authentication service is misconfigured.",
+      },
     });
   }
 
   // Use constant-time comparison for email to prevent timing attacks
-  const emailMatch = email.toLowerCase().trim() === partnerEmail.toLowerCase().trim();
+  const emailMatch =
+    email.toLowerCase().trim() === partnerEmail.toLowerCase().trim();
 
   // Verify password with bcrypt (inherently constant-time)
   let passwordMatch = false;
@@ -103,7 +118,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     recordFailedAttempt(ip);
     // Generic error message — never reveal which field was wrong
     return res.status(401).json({
-      error: { code: "INVALID_CREDENTIALS", message: "Invalid email or password." },
+      error: {
+        code: "INVALID_CREDENTIALS",
+        message: "Invalid email or password.",
+      },
     });
   }
 
@@ -111,7 +129,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (twoFAEnabled) {
     if (!twoFACode) {
       return res.status(400).json({
-        error: { code: "2FA_REQUIRED", message: "Two-factor authentication code is required." },
+        error: {
+          code: "2FA_REQUIRED",
+          message: "Two-factor authentication code is required.",
+        },
       });
     }
 
@@ -119,7 +140,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (twoFACode.trim() !== staticTotpCode) {
       recordFailedAttempt(ip);
       return res.status(401).json({
-        error: { code: "INVALID_2FA", message: "Invalid two-factor authentication code." },
+        error: {
+          code: "INVALID_2FA",
+          message: "Invalid two-factor authentication code.",
+        },
       });
     }
   }
@@ -136,7 +160,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     sub: "partner-001",
     email: partnerEmail,
     role: "partner",
-    fullName: "Sable Assents Coin Corporation",
+    fullName: "SableAssent Coin Corporation",
   })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt(now)
@@ -160,7 +184,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       user: {
         id: "partner-001",
         email: partnerEmail,
-        fullName: "Sable Assents Coin Corporation",
+        fullName: "SableAssent Coin Corporation",
         role: "partner",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),

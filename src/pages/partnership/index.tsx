@@ -50,13 +50,13 @@ const PartnershipPage: React.FC = () => {
             <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
               Powered by{" "}
               <span className="text-gradient">
-                Sable Assents Coin Corporation
+                SableAssent Coin Corporation
               </span>
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl leading-relaxed">
               Excellence is built on partnership. With a $
               {COMPANY.INVESTMENT_AMOUNT.toLocaleString()}.00 USD investment
-              commitment, Sable Assents is the cornerstone of FAP's financial
+              commitment, SableAssent is the cornerstone of FAP's financial
               and technical stability.
             </p>
           </div>

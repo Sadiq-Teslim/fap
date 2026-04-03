@@ -4,7 +4,7 @@ A revolutionary Web3 ecosystem powering the Future Africa Project, built with Ty
 
 ## ?? Project Overview
 
-FAP is a cutting-edge gaming platform that bridges virtual achievements with real-world prosperity through the SAC1 blockchain. The platform is powered by a \,000,000 USD investment from Sable Assents Coin Corporation.
+FAP is a cutting-edge gaming platform that bridges virtual achievements with real-world prosperity through the SAC1 blockchain. The platform is powered by a \,000,000 USD investment from SableAssent Coin Corporation.
 
 ### Key Features
 
@@ -157,7 +157,7 @@ Premium Enterprise License - All rights reserved to Bentech Synergy Technology L
 
 ## ?? Powered By
 
-**Sable Assents Coin Corporation** - \,000,000 USD Investment Partnership
+**SableAssent Coin Corporation** - \,000,000 USD Investment Partnership
 
 ---
 

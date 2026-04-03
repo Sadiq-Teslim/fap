@@ -71,7 +71,7 @@ export interface Achievement {
 export interface SAC1Token {
   id: string;
   address: string;
-  name: "Sable Assents Coin";
+  name: "SableAssent Coin";
   symbol: "SAC1";
   decimals: 18;
   totalSupply: string;

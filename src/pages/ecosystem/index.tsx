@@ -86,7 +86,7 @@ export const EcosystemPage: React.FC = () => {
                 icon: <Database className="w-7 h-7" />,
                 title: "The SAC1 Ledger",
                 description:
-                  "Utilizing the high-speed, secure blockchain protocols of Sable Assents Coin Corporation.",
+                  "Utilizing the high-speed, secure blockchain protocols of SableAssent Coin Corporation.",
                 details: [
                   "Instant transaction finality",
                   "Near-zero gas fees",
