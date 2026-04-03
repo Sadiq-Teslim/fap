@@ -18,15 +18,8 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set) => {
-  // Check auth on store creation
+  // Restore auth from localStorage on store creation
   const authData = authService.getAuthData();
-  if (authData) {
-    set({
-      user: authData.user,
-      token: authData.token,
-      isAuthenticated: true,
-    });
-  }
 
   return {
     user: authData?.user || null,
@@ -51,16 +44,24 @@ export const useAuthStore = create<AuthState>((set) => {
     },
 
     checkAuth: async () => {
+      // Skip verification if no token stored
+      const token = authService.getAccessToken();
+      if (!token) {
+        set({ user: null, token: null, isAuthenticated: false, isLoading: false });
+        return;
+      }
+
       set({ isLoading: true });
       try {
         const response = await authService.getCurrentUser();
         if (response.success && response.data) {
           set({ user: response.data, isAuthenticated: true });
         } else {
-          set({ user: null, isAuthenticated: false });
+          // Token invalid/expired
+          set({ user: null, token: null, isAuthenticated: false });
         }
-      } catch (error) {
-        set({ user: null, isAuthenticated: false });
+      } catch {
+        set({ user: null, token: null, isAuthenticated: false });
       } finally {
         set({ isLoading: false });
       }

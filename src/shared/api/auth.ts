@@ -1,87 +1,124 @@
 import { apiClient } from "./client";
-import type { AuthToken, User, LoginCredentials, RegisterData, ApiResponse } from "../types";
+import type { AuthToken, User, LoginCredentials, ApiResponse } from "../types";
+
+const AUTH_API_BASE = "/api/auth";
 
 class AuthService {
   async login(
-    credentials: LoginCredentials,
+    credentials: LoginCredentials & { twoFACode?: string },
   ): Promise<ApiResponse<{ user: User; token: AuthToken }>> {
-    const response = await apiClient.post<{ user: User; token: AuthToken }>(
-      "/auth/login",
-      credentials,
-    );
+    try {
+      const res = await fetch(`${AUTH_API_BASE}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
+      });
 
-    if (response.success && response.data?.token) {
-      apiClient.setAccessToken(response.data.token.accessToken);
-      this.saveAuthData(response.data);
+      const data = await res.json();
+
+      if (!res.ok) {
+        return {
+          success: false,
+          error: data.error || {
+            code: `HTTP_${res.status}`,
+            message: "Login failed.",
+          },
+        };
+      }
+
+      if (data.success && data.data?.token) {
+        apiClient.setAccessToken(data.data.token.accessToken);
+        this.saveAuthData(data.data);
+      }
+
+      return data;
+    } catch {
+      return {
+        success: false,
+        error: {
+          code: "NETWORK_ERROR",
+          message: "Unable to connect. Please check your network.",
+        },
+      };
     }
-
-    return response;
-  }
-
-  async register(
-    data: RegisterData,
-  ): Promise<ApiResponse<{ user: User; token: AuthToken }>> {
-    const response = await apiClient.post<{ user: User; token: AuthToken }>(
-      "/auth/register",
-      data,
-    );
-
-    if (response.success && response.data?.token) {
-      apiClient.setAccessToken(response.data.token.accessToken);
-      this.saveAuthData(response.data);
-    }
-
-    return response;
   }
 
   async logout(): Promise<void> {
-    try {
-      await apiClient.post("/auth/logout");
-    } catch {
-      // Ignore logout errors
-    } finally {
-      this.clearAuthData();
-    }
-  }
-
-  async refreshToken(refreshToken: string): Promise<ApiResponse<AuthToken>> {
-    const response = await apiClient.post<AuthToken>("/auth/refresh", {
-      refreshToken,
-    });
-
-    if (response.success && response.data?.accessToken) {
-      apiClient.setAccessToken(response.data.accessToken);
-    }
-
-    return response;
+    this.clearAuthData();
   }
 
   async getCurrentUser(): Promise<ApiResponse<User>> {
-    return apiClient.get<User>("/auth/me");
-  }
+    const token = this.getAccessToken();
+    if (!token) {
+      return {
+        success: false,
+        error: { code: "NO_TOKEN", message: "Not authenticated." },
+      };
+    }
 
-  async requestPasswordReset(
-    email: string,
-  ): Promise<ApiResponse<{ message: string }>> {
-    return apiClient.post<{ message: string }>("/auth/forgot-password", {
-      email,
-    });
-  }
+    try {
+      const res = await fetch(`${AUTH_API_BASE}/verify`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
-  async resetPassword(
-    token: string,
-    newPassword: string,
-  ): Promise<ApiResponse<{ message: string }>> {
-    return apiClient.post<{ message: string }>("/auth/reset-password", {
-      token,
-      newPassword,
-    });
+      const data = await res.json();
+
+      if (!res.ok) {
+        // Token invalid/expired — clear auth data
+        this.clearAuthData();
+        return {
+          success: false,
+          error: data.error || {
+            code: `HTTP_${res.status}`,
+            message: "Session expired.",
+          },
+        };
+      }
+
+      return data;
+    } catch {
+      return {
+        success: false,
+        error: {
+          code: "NETWORK_ERROR",
+          message: "Unable to verify session.",
+        },
+      };
+    }
   }
 
   getAuthData(): { user: User; token: AuthToken } | null {
     try {
       const data = localStorage.getItem("authData");
-      return data ? JSON.parse(data) : null;
+      if (!data) return null;
+
+      const parsed = JSON.parse(data);
+
+      // Check if token has expired by decoding JWT payload
+      if (parsed?.token?.accessToken) {
+        const payload = this.decodeJwtPayload(parsed.token.accessToken);
+        if (payload?.exp && (payload.exp as number) * 1000 < Date.now()) {
+          // Token expired — clear it
+          this.clearAuthData();
+          return null;
+        }
+      }
+
+      return parsed;
+    } catch {
+      return null;
+    }
+  }
+
+  private decodeJwtPayload(token: string): Record<string, unknown> | null {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      return JSON.parse(atob(base64));
     } catch {
       return null;
     }
@@ -90,8 +127,8 @@ class AuthService {
   private saveAuthData(data: { user: User; token: AuthToken }): void {
     try {
       localStorage.setItem("authData", JSON.stringify(data));
-    } catch (error) {
-      console.error("Failed to save auth data:", error);
+    } catch {
+      // localStorage unavailable
     }
   }
 
@@ -99,9 +136,10 @@ class AuthService {
     try {
       localStorage.removeItem("authData");
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("partnerToken"); // Clean up legacy key
       apiClient.clearAccessToken();
-    } catch (error) {
-      console.error("Failed to clear auth data:", error);
+    } catch {
+      // localStorage unavailable
     }
   }
 

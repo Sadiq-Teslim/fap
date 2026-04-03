@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input, Button, Alert } from "../../shared/ui";
 import { ROUTES, COMPANY } from "../../shared/constants";
-import { useFormValidation } from "../../shared/hooks";
+import { useAuthStore } from "../../features/auth/store";
+import { authService } from "../../shared/api";
 import {
   Lock,
   AlertCircle,
@@ -25,45 +26,55 @@ import {
    ═════════════════════════════════════════════════ */
 const PartnerLoginPage: React.FC = () => {
   const navigate = useNavigate();
+  const { setUser, setToken } = useAuthStore();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    twoFACode: "",
+  });
 
-  const {
-    values,
-    errors,
-    handleChange,
-    handleSubmit: handleFormSubmit,
-  } = useFormValidation(
-    {
-      email: "",
-      password: "",
-      twoFACode: "",
-    },
-    async (values) => {
-      setIsLoading(true);
-      setLoginError(null);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (loginError) setLoginError(null);
+  };
 
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-
-        if (values.email && values.password) {
-          localStorage.setItem("partnerToken", "demo-token-" + Date.now());
-          navigate(ROUTES.PARTNER_DASHBOARD);
-        } else {
-          setLoginError("Invalid credentials");
-        }
-      } catch {
-        setLoginError("Login failed. Please try again.");
-      } finally {
-        setIsLoading(false);
-      }
-    },
-  );
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    handleFormSubmit(e as any);
+    setIsLoading(true);
+    setLoginError(null);
+
+    // Client-side validation
+    if (!values.email || !values.password) {
+      setLoginError("Email and password are required.");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await authService.login({
+        email: values.email,
+        password: values.password,
+        twoFACode: values.twoFACode || undefined,
+      });
+
+      if (response.success && response.data) {
+        // Update global auth state
+        setUser(response.data.user);
+        setToken(response.data.token);
+        navigate(ROUTES.PARTNER_DASHBOARD);
+      } else {
+        setLoginError(
+          response.error?.message || "Login failed. Please try again.",
+        );
+      }
+    } catch {
+      setLoginError("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -88,7 +99,7 @@ const PartnerLoginPage: React.FC = () => {
         {loginError && (
           <Alert
             type="error"
-            title="Login Failed"
+            title="Authentication Failed"
             closeable
             onClose={() => setLoginError(null)}
             className="mb-6"
@@ -105,7 +116,6 @@ const PartnerLoginPage: React.FC = () => {
             name="email"
             value={values.email}
             onChange={handleChange}
-            error={errors.email}
             placeholder="partner@company.com"
             icon={<AlertCircle className="w-4 h-4" />}
             required
@@ -119,7 +129,6 @@ const PartnerLoginPage: React.FC = () => {
               name="password"
               value={values.password}
               onChange={handleChange}
-              error={errors.password}
               placeholder="••••••••••••"
               icon={<Lock className="w-4 h-4" />}
               required
@@ -142,7 +151,6 @@ const PartnerLoginPage: React.FC = () => {
             onChange={handleChange}
             placeholder="000000"
             helperText="Enter your 6-digit code from your authenticator app"
-            required
             disabled={isLoading}
           />
 
@@ -186,6 +194,13 @@ const PartnerDashboardPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
     "overview" | "investment" | "metrics" | "reports"
   >("overview");
+  const { user, logout } = useAuthStore();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate(ROUTES.PARTNER_LOGIN);
+  };
 
   const tabs = [
     { id: "overview", label: "Overview", icon: <BarChart3 className="w-4 h-4" /> },
@@ -212,12 +227,18 @@ const PartnerDashboardPage: React.FC = () => {
               <div className="text-right hidden sm:block">
                 <p className="text-sm text-slate-400">Lead Partner</p>
                 <p className="font-semibold text-white">
-                  {COMPANY.PARTNER_NAME}
+                  {user?.fullName || COMPANY.PARTNER_NAME}
                 </p>
               </div>
               <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light font-bold">
                 SA
               </div>
+              <button
+                onClick={handleLogout}
+                className="text-sm text-slate-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg border border-navy-border hover:border-accent/30"
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>
@@ -228,7 +249,7 @@ const PartnerDashboardPage: React.FC = () => {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as "overview" | "investment" | "metrics" | "reports")}
                 className={`py-4 px-4 font-semibold transition-all duration-300 inline-flex items-center gap-2 text-sm ${
                   activeTab === tab.id
                     ? "text-accent-light border-b-2 border-accent"
