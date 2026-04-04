@@ -182,11 +182,9 @@ export const ROADMAP_PHASES = {
 
 // Social Links
 export const SOCIAL_LINKS = {
-  TWITTER: "https://twitter.com/fapgame",
-  DISCORD: "https://discord.gg/fapgame",
-  TELEGRAM: "https://t.me/fapgame",
-  LINKEDIN: "https://linkedin.com/company/fap-game",
-  INSTAGRAM: "https://instagram.com/fapgame",
+  TWITTER: "https://x.com/fapgame_x",
+  INSTAGRAM: "https://www.instagram.com/fapgame_ig?igsh=MTJicXQ1dTR5aGs4ZA==",
+  FACEBOOK: "https://www.facebook.com/share/1PKg6bYNsC/",
 } as const;
 
 // Legal Links
