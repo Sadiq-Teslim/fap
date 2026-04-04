@@ -95,7 +95,7 @@ export const HomePage: React.FC = () => {
             <div className="grid grid-cols-3 gap-6 max-w-xl mx-auto">
               {[
                 { value: "10K+", label: "Active Pioneers" },
-                { value: "$2M+", label: "Capital Invested" },
+                { value: "Backed", label: "Institutionally Funded" },
                 { value: "99.9%", label: "Network Uptime" },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
@@ -125,12 +125,12 @@ export const HomePage: React.FC = () => {
                 The Milestone
               </p>
               <p className="text-5xl md:text-6xl font-extrabold text-white mb-2">
-                ${COMPANY.INVESTMENT_AMOUNT.toLocaleString()}
-                <span className="text-accent-light">.00 USD</span>
+                Institutionally
+                <span className="text-accent-light"> Backed</span>
               </p>
               <p className="text-slate-400 text-lg mt-4 max-w-lg mx-auto">
-                Capital injection by {COMPANY.PARTNER_NAME} for the
-                implementation of FAP Episode One.
+                Strategic capital partnership with {COMPANY.PARTNER_NAME} powering
+                the implementation of FAP Episode One.
               </p>
               <div className="flex items-center justify-center gap-3 mt-8">
                 <Link to={ROUTES.PARTNERSHIP}>
@@ -420,7 +420,7 @@ export const HomePage: React.FC = () => {
                 path: ROUTES.PARTNERSHIP,
                 title: "Our Partnership",
                 description:
-                  "Powered by $2M institutional capital from SableAssent.",
+                  "Backed by institutional capital from SableAssent.",
                 icon: <Landmark className="w-5 h-5" />,
               },
               {
@@ -467,7 +467,7 @@ export const HomePage: React.FC = () => {
               },
               {
                 icon: <TrendingUp className="w-5 h-5" />,
-                value: "$2M+",
+                value: "Active",
                 label: "Assets Traded",
               },
               {

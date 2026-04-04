@@ -59,8 +59,6 @@ export const COMPANY = {
   HEADQUARTERS: "10 Ijaye Road Ogba, Ikeja, Lagos",
   EMAIL: "contact@fap-game.com",
   WEBSITE: "https://fap-game.com",
-  INVESTMENT_AMOUNT: 2000000,
-  INVESTMENT_CURRENCY: "USD",
 } as const;
 
 // Game Configuration
@@ -156,7 +154,7 @@ export const ROADMAP_PHASES = {
     name: "Q1-Q2 2026",
     title: "Episode One Implementation",
     description:
-      "Implementation of Episode One. Deployment of $2M capital for core infrastructure.",
+      "Implementation of Episode One. Deployment of institutional capital for core infrastructure.",
     status: "in_progress",
   },
   PHASE_2: {

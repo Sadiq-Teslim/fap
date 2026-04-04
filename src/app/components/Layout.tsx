@@ -313,11 +313,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             <div className="text-sm text-slate-600">
               Lead Partner:{" "}
               <span className="text-accent-light font-medium">{COMPANY.PARTNER_NAME}</span>
-              {" "}&middot;{" "}
-              Funded:{" "}
-              <span className="text-white font-medium">
-                ${COMPANY.INVESTMENT_AMOUNT.toLocaleString()} {COMPANY.INVESTMENT_CURRENCY}
-              </span>
             </div>
           </div>
         </div>

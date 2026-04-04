@@ -1,5 +1,5 @@
 import { Layout } from "../../app/components/Layout";
-import { COMPANY, ROADMAP_PHASES } from "../../shared/constants";
+import { ROADMAP_PHASES } from "../../shared/constants";
 import {
   CheckCircle,
   Clock,
@@ -54,10 +54,9 @@ const PartnershipPage: React.FC = () => {
               </span>
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl leading-relaxed">
-              Excellence is built on partnership. With a $
-              {COMPANY.INVESTMENT_AMOUNT.toLocaleString()}.00 USD investment
-              commitment, SableAssent is the cornerstone of FAP's financial
-              and technical stability.
+              Excellence is built on partnership. SableAssent is the
+              cornerstone of FAP's financial and technical stability,
+              providing the institutional backing that powers our vision.
             </p>
           </div>
         </div>
@@ -86,7 +85,7 @@ const PartnershipPage: React.FC = () => {
               {
                 title: "Financial Stability",
                 items: [
-                  "$2M USD commitment",
+                  "Institutional commitment",
                   "Multi-year support",
                   "Growth capital available",
                 ],

@@ -220,7 +220,7 @@ const PartnerDashboardPage: React.FC = () => {
                 Partner Dashboard
               </h1>
               <p className="text-slate-400 mt-1">
-                Real-Time Oversight of the $2M FAP Implementation
+                Real-Time Oversight of the FAP Implementation
               </p>
             </div>
             <div className="flex items-center gap-4">
@@ -294,7 +294,7 @@ const OverviewTab: React.FC = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {[
-          { label: "Total Investment", value: "$2,000,000", status: "active" },
+          { label: "Investment Status", value: "Active", status: "active" },
           { label: "Disbursed to Date", value: "$700,000", status: "pending" },
           { label: "POS Terminals", value: "50 Active", status: "active" },
           { label: "Registered Pioneers", value: "2,500+", status: "active" },
@@ -375,39 +375,33 @@ const OverviewTab: React.FC = () => {
 /* ── Investment Tab ── */
 const InvestmentTab: React.FC = () => {
   const items = [
-    { category: "Development", amount: 500000, allocated: 2000000 },
-    { category: "Infrastructure", amount: 150000, allocated: 2000000 },
-    { category: "Marketing", amount: 50000, allocated: 2000000 },
+    { category: "Development", percent: 65 },
+    { category: "Infrastructure", percent: 20 },
+    { category: "Marketing", percent: 15 },
   ];
-
-  const totalDisbursed = items.reduce((sum, item) => sum + item.amount, 0);
 
   return (
     <div className="space-y-6">
       {/* Summary cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="card-premium group">
-          <p className="text-sm text-slate-400 mb-1">Total Commitment</p>
-          <p className="text-2xl font-extrabold text-white">$2,000,000</p>
+          <p className="text-sm text-slate-400 mb-1">Commitment</p>
+          <p className="text-2xl font-extrabold text-white">Institutional</p>
         </div>
         <div className="card-premium group">
-          <p className="text-sm text-slate-400 mb-1">Total Disbursed</p>
-          <p className="text-2xl font-extrabold text-accent-light">
-            ${totalDisbursed.toLocaleString()}
-          </p>
+          <p className="text-sm text-slate-400 mb-1">Disbursement Status</p>
+          <p className="text-2xl font-extrabold text-accent-light">On Track</p>
         </div>
         <div className="card-premium group">
-          <p className="text-sm text-slate-400 mb-1">Remaining</p>
-          <p className="text-2xl font-extrabold text-white">
-            ${(2000000 - totalDisbursed).toLocaleString()}
-          </p>
+          <p className="text-sm text-slate-400 mb-1">Utilization</p>
+          <p className="text-2xl font-extrabold text-white">35%</p>
         </div>
       </div>
 
       {/* Breakdown */}
       <div className="card-premium">
         <h3 className="font-bold text-lg mb-6 text-white">
-          Investment Disbursement Tracking
+          Investment Allocation Breakdown
         </h3>
         <div className="space-y-6">
           {items.map((item, index) => (
@@ -415,20 +409,15 @@ const InvestmentTab: React.FC = () => {
               <div className="flex justify-between mb-2">
                 <p className="font-semibold text-white">{item.category}</p>
                 <p className="text-accent-light font-bold">
-                  ${item.amount.toLocaleString()}
+                  {item.percent}%
                 </p>
               </div>
               <div className="w-full bg-navy-mid rounded-full h-2.5 overflow-hidden">
                 <div
                   className="bg-gradient-to-r from-accent to-primary rounded-full h-2.5 transition-all duration-500"
-                  style={{
-                    width: `${(item.amount / item.allocated) * 100}%`,
-                  }}
+                  style={{ width: `${item.percent}%` }}
                 />
               </div>
-              <p className="text-xs text-slate-500 mt-1">
-                {((item.amount / item.allocated) * 100).toFixed(1)}% of total
-              </p>
             </div>
           ))}
         </div>
