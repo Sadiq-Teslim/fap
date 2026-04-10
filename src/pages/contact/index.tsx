@@ -22,7 +22,7 @@ const WaveDivider: React.FC<{ fill?: string }> = ({
   </div>
 );
 
-const FORMSPREE_URL = "https://formspree.io/f/mnjobwwk";
+const FORMSPREE_URL = "https://formspree.io/f/xgopjjle";
 
 export const ContactPage: React.FC = () => {
   const [values, setValues] = useState({
@@ -85,7 +85,7 @@ export const ContactPage: React.FC = () => {
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl leading-relaxed">
               {COMPANY.NAME} is open to strategic collaborations that align with
-              the FAP mission.
+              the FAPGAME mission.
             </p>
           </div>
         </div>
@@ -200,7 +200,7 @@ export const ContactPage: React.FC = () => {
                     onChange={handleChange}
                     options={[
                       { value: "player", label: "Sign up for Episode One Alpha" },
-                      { value: "developer", label: "Join FAP Pioneers Internship" },
+                      { value: "developer", label: "Join FAPGAME Pioneers Internship" },
                       { value: "partner", label: "SAC1 POS Merchant Integration" },
                       { value: "other", label: "Other" },
                     ]}

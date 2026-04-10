@@ -86,7 +86,7 @@ const PartnerLoginPage: React.FC = () => {
       <div className="card-premium w-full max-w-md !p-8 relative">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="text-4xl font-bold text-gradient mb-4">FAP</div>
+          <div className="text-4xl font-bold text-gradient mb-4">FAPGAME</div>
           <h1 className="text-2xl font-extrabold text-white mb-2">
             Partner Portal
           </h1>
@@ -220,7 +220,7 @@ const PartnerDashboardPage: React.FC = () => {
                 Partner Dashboard
               </h1>
               <p className="text-slate-400 mt-1">
-                Real-Time Oversight of the FAP Implementation
+                Real-Time Oversight of the FAPGAME Implementation
               </p>
             </div>
             <div className="flex items-center gap-4">
@@ -288,7 +288,7 @@ const OverviewTab: React.FC = () => {
     <div className="space-y-6">
       <Alert type="success" title="Project Status" className="mb-6">
         <p>
-          FAP Episode One implementation is on track. Current completion: 35%
+          FAPGAME Episode One implementation is on track. Current completion: 35%
         </p>
       </Alert>
 

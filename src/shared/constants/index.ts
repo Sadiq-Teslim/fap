@@ -7,6 +7,7 @@ export const API_TIMEOUT = 30000;
 export const ROUTES = {
   // Public Routes
   HOME: "/",
+  ABOUT: "/about",
   ECOSYSTEM: "/ecosystem",
   EPISODE_ONE: "/episode-one",
   SAC1_POS_BRIDGE: "/sac1-pos-bridge",
@@ -175,7 +176,7 @@ export const ROADMAP_PHASES = {
     name: "2027+",
     title: "Pan-African Rollout",
     description:
-      "Pan-African retail rollout and integration of FAP rewards into mainstream digital services.",
+      "Pan-African retail rollout and integration of FAPGAME rewards into mainstream digital services.",
     status: "upcoming",
   },
 } as const;

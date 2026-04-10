@@ -92,13 +92,14 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
   /* Mobile links — flat list */
   const allLinks = [
+    { label: "About Us", path: ROUTES.ABOUT },
     { label: "Ecosystem", path: ROUTES.ECOSYSTEM },
     { label: "Episode One", path: ROUTES.EPISODE_ONE },
     { label: "SAC1 POS Bridge", path: ROUTES.SAC1_POS_BRIDGE },
     { label: "Digital Assets", path: ROUTES.DIGITAL_ASSETS },
-    { label: "Partnership", path: ROUTES.PARTNERSHIP },
+    { label: "Strategic Partnership", path: ROUTES.PARTNERSHIP },
     { label: "Roadmap", path: ROUTES.ROADMAP },
-    { label: "Contact", path: ROUTES.CONTACT },
+    { label: "Contact & Investor Relations", path: ROUTES.CONTACT },
   ];
 
   return (
@@ -108,7 +109,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
         <div className="container-max flex items-center justify-between py-4">
           {/* Logo */}
           <Link to={ROUTES.HOME} className="flex items-center gap-3">
-            <div className="text-2xl font-extrabold text-gradient">FAP</div>
+            <div className="text-2xl font-extrabold text-gradient">FAPGAME</div>
             <div className="hidden sm:block text-sm text-slate-500 font-medium">
               Future Africa Project
             </div>
@@ -116,6 +117,17 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
           {/* Desktop Navigation — grouped */}
           <div className="hidden lg:flex items-center gap-6">
+            <Link
+              to={ROUTES.ABOUT}
+              className={`text-sm font-medium transition-colors duration-200 ${
+                isActive(ROUTES.ABOUT)
+                  ? "text-accent-light"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              About Us
+            </Link>
+
             <Link
               to={ROUTES.ECOSYSTEM}
               className={`text-sm font-medium transition-colors duration-200 ${
@@ -138,24 +150,14 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             />
 
             <NavDropdown
-              label="About"
+              label="More"
               isActive={isActive}
               items={[
-                { label: "Partnership", path: ROUTES.PARTNERSHIP },
+                { label: "Strategic Partnership", path: ROUTES.PARTNERSHIP },
                 { label: "Roadmap", path: ROUTES.ROADMAP },
+                { label: "Contact & Investor Relations", path: ROUTES.CONTACT },
               ]}
             />
-
-            <Link
-              to={ROUTES.CONTACT}
-              className={`text-sm font-medium transition-colors duration-200 ${
-                isActive(ROUTES.CONTACT)
-                  ? "text-accent-light"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              Contact
-            </Link>
           </div>
 
           {/* Right side */}
@@ -228,10 +230,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
             {/* About */}
             <div>
-              <h3 className="font-bold text-xl mb-4 text-gradient">FAP</h3>
+              <h3 className="font-bold text-xl mb-4 text-gradient">FAPGAME</h3>
               <p className="text-sm text-slate-500 leading-relaxed">
-                Future Africa Project — Bridging virtual achievements and
-                real-world prosperity across the continent.
+                FAPGAME — An innovative open-world action-adventure video game
+                bridging virtual achievements and real-world prosperity across Africa.
               </p>
             </div>
 
@@ -240,13 +242,18 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
               <h4 className="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Company</h4>
               <ul className="text-sm space-y-3 text-slate-500">
                 <li>
+                  <Link to={ROUTES.ABOUT} className="hover:text-accent-light transition-colors">
+                    About Us
+                  </Link>
+                </li>
+                <li>
                   <Link to={ROUTES.PARTNERSHIP} className="hover:text-accent-light transition-colors">
-                    Partnership
+                    Strategic Partnership
                   </Link>
                 </li>
                 <li>
                   <Link to={ROUTES.CONTACT} className="hover:text-accent-light transition-colors">
-                    Contact
+                    Contact & Investor Relations
                   </Link>
                 </li>
                 <li><span>{COMPANY.HEADQUARTERS}</span></li>

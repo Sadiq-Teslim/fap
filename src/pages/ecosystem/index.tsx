@@ -48,7 +48,7 @@ export const EcosystemPage: React.FC = () => {
               <span className="text-gradient">Digital Economy</span>
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl leading-relaxed">
-              FAP is built on a "Triangle of Utility" that ensures value never
+              FAPGAME is built on a "Triangle of Utility" that ensures value never
               leaves the hands of our community.
             </p>
           </div>

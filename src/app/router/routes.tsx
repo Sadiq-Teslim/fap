@@ -7,6 +7,9 @@ import { lazy, Suspense } from "react";
 import { Loading } from "../../shared/ui";
 
 const Home = lazy(() => import("../../pages/home"));
+const About = lazy(() =>
+  import("../../pages/about").then((m) => ({ default: m.AboutPage })),
+);
 const Ecosystem = lazy(() =>
   import("../../pages/ecosystem").then((m) => ({ default: m.EcosystemPage })),
 );
@@ -52,6 +55,14 @@ export const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LoadingFallback />}>
         <Home />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.ABOUT,
+    element: (
+      <Suspense fallback={<LoadingFallback />}>
+        <About />
       </Suspense>
     ),
   },

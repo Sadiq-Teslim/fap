@@ -54,9 +54,9 @@ const PartnershipPage: React.FC = () => {
               </span>
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl leading-relaxed">
-              Excellence is built on partnership. SableAssent is the
-              cornerstone of FAP's financial and technical stability,
-              providing the institutional backing that powers our vision.
+              Excellence is built on partnership. SableAssent is the cornerstone
+              of FAPGAME's financial and technical stability, providing the
+              institutional backing that powers our vision.
             </p>
           </div>
         </div>
@@ -151,7 +151,7 @@ const PartnershipPage: React.FC = () => {
               {
                 icon: <Code className="w-6 h-6" />,
                 title: "For Developers",
-                desc: "Participate in the FAP Pioneers Internship Program and build on the SAC1 blockchain.",
+                desc: "Participate in the FAPGAME Pioneers Internship Program and build on the SAC1 blockchain.",
               },
               {
                 icon: <Handshake className="w-6 h-6" />,
@@ -289,7 +289,7 @@ const RoadmapPage: React.FC = () => {
                 Building Africa's Digital Future
               </h2>
               <p className="text-slate-400 mb-8 max-w-lg mx-auto">
-                The FAP roadmap represents a continental commitment to digital
+                The FAPGAME roadmap represents a continental commitment to digital
                 innovation and economic transformation.
               </p>
               <Link to={ROUTES.CONTACT}>

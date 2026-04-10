@@ -180,7 +180,7 @@ const SAC1POSBridgePageComp: React.FC = () => {
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl leading-relaxed">
               Most Web3 projects fail because their tokens have no "real-world"
-              exit. FAP solves this through our Lead Partner's SAC1 POS
+              exit. FAPGAME solves this through our Lead Partner's SAC1 POS
               infrastructure.
             </p>
           </div>
@@ -212,7 +212,7 @@ const SAC1POSBridgePageComp: React.FC = () => {
                 step: "01",
                 icon: <QrCode className="w-6 h-6" />,
                 title: "Generate",
-                desc: "Create a secure, dynamic pay-code within the FAP app.",
+                desc: "Create a secure, dynamic pay-code within the FAPGAME app.",
               },
               {
                 step: "02",
@@ -300,7 +300,7 @@ const DigitalAssetsPageComp: React.FC = () => {
               <span className="text-gradient">Immutable Value.</span>
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl leading-relaxed">
-              In FAP, your items are yours. Period. Every piece of land, tool,
+              In FAPGAME, your items are yours. Period. Every piece of land, tool,
               or skin is a unique NFT minted on the SAC1 blockchain.
             </p>
           </div>
