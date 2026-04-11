@@ -110,9 +110,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
           {/* Logo */}
           <Link to={ROUTES.HOME} className="flex items-center gap-3">
             <div className="text-2xl font-extrabold text-gradient">FAPGAME</div>
-            <div className="hidden sm:block text-sm text-slate-500 font-medium">
-              Future Africa Project
-            </div>
           </Link>
 
           {/* Desktop Navigation — grouped */}
@@ -227,12 +224,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
       {/* Footer */}
       <footer className="border-t border-navy-border/60 bg-navy-light">
         <div className="container-max py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-10">
             {/* About */}
             <div>
               <h3 className="font-bold text-xl mb-4 text-gradient">FAPGAME</h3>
               <p className="text-sm text-slate-500 leading-relaxed">
-                FAPGAME — An innovative open-world action-adventure video game
+                An innovative open-world action-adventure video game
                 bridging virtual achievements and real-world prosperity across Africa.
               </p>
             </div>

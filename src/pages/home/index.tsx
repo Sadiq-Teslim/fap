@@ -3,6 +3,7 @@ import { ROUTES, COMPANY } from "../../shared/constants";
 import { Button } from "../../shared/ui";
 import { Layout } from "../../app/components/Layout";
 import { useState, useEffect, useRef } from "react";
+import { useScrollAnimation } from "../../shared/hooks/useScrollAnimation";
 import {
   ArrowRight,
   Gamepad2,
@@ -181,285 +182,286 @@ const worldScenes = [
 ];
 
 export const HomePage: React.FC = () => {
+  const scrollRef = useScrollAnimation();
+
   return (
     <Layout>
-      {/* ═══════════════ HERO — Full visual ═══════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${heroWorld})` }}
-        />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/60 to-navy" />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/80 via-transparent to-navy/40" />
+      <div ref={scrollRef}>
+        {/* ═══════════════ HERO — Full visual, centered ═══════════════ */}
+        <section className="relative min-h-screen flex items-center overflow-hidden">
+          {/* Background image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${heroWorld})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/60 to-navy" />
 
-        <div className="container-max relative z-10 py-20">
-          <div className="max-w-3xl">
-            {/* Pill */}
-            <div className="inline-flex items-center gap-2 mb-8 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm">
-              <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-              <span className="text-accent-light font-medium text-sm">
-                Powered by SAC1 Blockchain
-              </span>
+          <div className="container-max relative z-10 py-20 w-full">
+            <div className="max-w-3xl mx-auto text-center">
+              {/* Pill */}
+              <div className="inline-flex items-center gap-2 mb-8 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm animate-on-scroll">
+                <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+                <span className="text-accent-light font-medium text-sm">
+                  Powered by SAC1 Blockchain
+                </span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 leading-[1.1] tracking-tight animate-on-scroll delay-100">
+                <span className="text-white">Bridging the Gap Between</span>
+                <br />
+                <span className="text-gradient">Virtual Achievement</span>
+                <br />
+                <span className="text-white">&amp; Real-World Prosperity</span>
+              </h1>
+
+              <p className="text-base md:text-lg text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed animate-on-scroll delay-200">
+                Welcome to FAPGAME. A revolutionary open-world action-adventure
+                video game built on a Web3 ecosystem, powered by{" "}
+                {COMPANY.PARTNER_NAME}'s SAC1.
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll delay-300">
+                <Link to={ROUTES.EPISODE_ONE}>
+                  <button className="btn-glow px-8 py-4 text-base font-semibold inline-flex items-center gap-2">
+                    Explore Episode One
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </Link>
+                <Link to={ROUTES.ABOUT}>
+                  <button className="btn-outline-glow px-8 py-4 text-base font-semibold">
+                    Learn More
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom fade */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent" />
+        </section>
+
+        {/* ═══════════════ GAMEPLAY CLIPS ═══════════════ */}
+        <WaveDivider fill="#111927" />
+        <section className="bg-navy-light pb-24 pt-8">
+          <div className="container-max">
+            <div className="text-center mb-12 animate-on-scroll">
+              <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
+                See It In Action
+              </p>
+              <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-4">
+                Gameplay Preview
+              </h2>
+              <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                Experience the immersive world of FAPGAME through cinematic
+                gameplay sequences.
+              </p>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-6 leading-[1.05] tracking-tight">
-              <span className="text-white">Bridging the Gap Between</span>
-              <br />
-              <span className="text-gradient">Virtual Achievement</span>
-              <br />
-              <span className="text-white">&amp; Real-World Prosperity</span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl leading-relaxed">
-              Welcome to the Future Africa Project (FAPGAME). A revolutionary
-              open-world action-adventure video game built on a Web3 ecosystem,
-              powered by the {COMPANY.PARTNER_NAME}'s SAC1.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to={ROUTES.EPISODE_ONE}>
-                <button className="btn-glow px-8 py-4 text-base font-semibold inline-flex items-center gap-2">
-                  Explore Episode One
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </Link>
-              <Link to={ROUTES.ABOUT}>
-                <button className="btn-outline-glow px-8 py-4 text-base font-semibold">
-                  Learn More
-                </button>
-              </Link>
+            <div className="max-w-4xl mx-auto animate-on-scroll delay-200">
+              <GameplayCarousel />
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent" />
-      </section>
+        {/* ═══════════════ CHARACTERS ═══════════════ */}
+        <WaveDivider fill="#0B1121" />
+        <section className="bg-navy pb-24 pt-8">
+          <div className="container-max">
+            <div className="text-center mb-12 animate-on-scroll">
+              <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
+                Meet The Cast
+              </p>
+              <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-4">
+                Iconic Characters
+              </h2>
+              <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                Each character represents a facet of Africa's rich cultural
+                heritage — kings, warriors, queens, and visionaries.
+              </p>
+            </div>
 
-      {/* ═══════════════ GAMEPLAY CLIPS ═══════════════ */}
-      <WaveDivider fill="#111927" />
-      <section className="bg-navy-light pb-24 pt-8">
-        <div className="container-max">
-          <div className="text-center mb-12">
-            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
-              See It In Action
-            </p>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
-              Gameplay Preview
-            </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-              Experience the immersive world of FAPGAME through cinematic
-              gameplay sequences.
-            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
+              {characters.map((char, i) => (
+                <div key={i} className={`group relative animate-on-scroll delay-${(i % 4) * 100}`}>
+                  <div className="rounded-2xl overflow-hidden border border-navy-border/60 shadow-card aspect-[3/4]">
+                    <img
+                      src={char.img}
+                      alt={char.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-2xl" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <p className="text-white font-bold text-sm md:text-base">
+                        {char.name}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+        </section>
 
-          <div className="max-w-4xl mx-auto">
-            <GameplayCarousel />
-          </div>
-        </div>
-      </section>
+        {/* ═══════════════ WORLD SCENES ═══════════════ */}
+        <WaveDivider fill="#111927" />
+        <section className="bg-navy-light pb-24 pt-8">
+          <div className="container-max">
+            <div className="text-center mb-12 animate-on-scroll">
+              <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
+                Explore The World
+              </p>
+              <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-4">
+                A Continent Reimagined
+              </h2>
+              <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                Traverse breathtaking African landscapes — from ancient kingdoms
+                to futuristic megacities.
+              </p>
+            </div>
 
-      {/* ═══════════════ CHARACTERS ═══════════════ */}
-      <WaveDivider fill="#0B1121" />
-      <section className="bg-navy pb-24 pt-8">
-        <div className="container-max">
-          <div className="text-center mb-12">
-            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
-              Meet The Cast
-            </p>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
-              Iconic Characters
-            </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-              Each character represents a facet of Africa's rich cultural
-              heritage — kings, warriors, queens, and visionaries.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
-            {characters.map((char, i) => (
-              <div key={i} className="group relative">
-                <div className="rounded-2xl overflow-hidden border border-navy-border/60 shadow-card aspect-[3/4]">
-                  <img
-                    src={char.img}
-                    alt={char.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-2xl" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <p className="text-white font-bold text-sm md:text-base">
-                      {char.name}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {worldScenes.map((scene, i) => (
+                <div key={i} className={`group relative rounded-2xl overflow-hidden border border-navy-border/60 shadow-card animate-on-scroll delay-${(i % 2) * 200}`}>
+                  <div className="aspect-video">
+                    <img
+                      src={scene.img}
+                      alt={scene.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-white font-bold text-lg md:text-xl mb-1">
+                      {scene.title}
+                    </h3>
+                    <p className="text-slate-300 text-sm leading-relaxed">
+                      {scene.desc}
                     </p>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ═══════════════ WORLD SCENES ═══════════════ */}
-      <WaveDivider fill="#111927" />
-      <section className="bg-navy-light pb-24 pt-8">
-        <div className="container-max">
-          <div className="text-center mb-12">
-            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
-              Explore The World
-            </p>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
-              A Continent Reimagined
-            </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-              Traverse breathtaking African landscapes — from ancient kingdoms
-              to futuristic megacities.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {worldScenes.map((scene, i) => (
-              <div key={i} className="group relative rounded-2xl overflow-hidden border border-navy-border/60 shadow-card">
-                <div className="aspect-video">
-                  <img
-                    src={scene.img}
-                    alt={scene.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="text-white font-bold text-xl mb-1">
-                    {scene.title}
-                  </h3>
-                  <p className="text-slate-300 text-sm leading-relaxed">
-                    {scene.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ WHAT MAKES US DIFFERENT ═══════════════ */}
-      <WaveDivider fill="#0B1121" />
-      <section className="bg-navy pb-24 pt-8">
-        <div className="container-max">
-          <div className="text-center mb-16">
-            <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
-              Why FAPGAME
-            </p>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
-              Not Just a Game — A Movement
-            </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-              We merge high-fidelity gaming with blockchain infrastructure so
-              in-game triumphs become real-world assets.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                icon: <Gamepad2 className="w-6 h-6" />,
-                title: "Play & Earn",
-                desc: "Every achievement is recorded on the SAC1 blockchain with instant token rewards.",
-                link: ROUTES.EPISODE_ONE,
-              },
-              {
-                icon: <CreditCard className="w-6 h-6" />,
-                title: "POS Bridge",
-                desc: "Spend digital rewards at physical merchant terminals across Africa.",
-                link: ROUTES.SAC1_POS_BRIDGE,
-              },
-              {
-                icon: <Shield className="w-6 h-6" />,
-                title: "Bank-Grade Security",
-                desc: "AES-256 encryption with blockchain-verified session integrity.",
-                link: ROUTES.ECOSYSTEM,
-              },
-              {
-                icon: <TrendingUp className="w-6 h-6" />,
-                title: "Transparent Economics",
-                desc: "Near-zero gas fees, on-chain audits, and zero hidden costs.",
-                link: ROUTES.DIGITAL_ASSETS,
-              },
-              {
-                icon: <Globe className="w-6 h-6" />,
-                title: "African Heritage",
-                desc: "Stories rooted in African culture, history, and contemporary leadership challenges.",
-                link: ROUTES.ABOUT,
-              },
-              {
-                icon: <Sparkles className="w-6 h-6" />,
-                title: "Digital Ownership",
-                desc: "True NFT ownership — create, trade, and own verifiable digital assets.",
-                link: ROUTES.DIGITAL_ASSETS,
-              },
-            ].map((feature, index) => (
-              <Link key={index} to={feature.link} className="group">
-                <div className="card-premium h-full flex flex-col">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
-                    {feature.icon}
-                  </div>
-                  <h3 className="font-bold text-lg mb-3 text-white group-hover:text-accent-light transition-colors">
-                    {feature.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm leading-relaxed flex-grow">
-                    {feature.desc}
-                  </p>
-                  <div className="mt-5 text-accent-light font-medium text-sm flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                    Learn more
-                    <ChevronRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ PARTNERSHIP + CTA ═══════════════ */}
-      <WaveDivider fill="#111927" />
-      <section className="bg-navy-light pb-24 pt-8">
-        <div className="container-max">
-          {/* CTA card with world image bg */}
-          <div className="relative rounded-3xl overflow-hidden border border-accent/15">
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${worldDunga})` }}
-            />
-            <div className="absolute inset-0 bg-navy/85 backdrop-blur-sm" />
-            <div className="absolute top-0 left-1/3 w-80 h-80 bg-accent/8 rounded-full blur-[120px]" />
-
-            <div className="relative px-8 py-14 md:py-20 text-center">
-              <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
-                Ready to Enter the World of FAPGAME?
-              </h2>
-              <p className="text-slate-300 mb-8 max-w-lg mx-auto text-lg">
-                Join thousands of pioneers exploring Africa's future through
-                gaming, blockchain, and cultural storytelling.
+        {/* ═══════════════ WHAT MAKES US DIFFERENT ═══════════════ */}
+        <WaveDivider fill="#0B1121" />
+        <section className="bg-navy pb-24 pt-8">
+          <div className="container-max">
+            <div className="text-center mb-16 animate-on-scroll">
+              <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
+                Why FAPGAME
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Link to={ROUTES.EPISODE_ONE}>
-                  <button className="btn-glow px-8 py-4 text-base font-semibold inline-flex items-center gap-2">
-                    Explore Episode One <ArrowRight className="w-4 h-4" />
-                  </button>
+              <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6">
+                Not Just a Game — A Movement
+              </h2>
+              <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                We merge high-fidelity gaming with blockchain infrastructure so
+                in-game triumphs become real-world assets.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: <Gamepad2 className="w-6 h-6" />,
+                  title: "Play & Earn",
+                  desc: "Every achievement is recorded on the SAC1 blockchain with instant token rewards.",
+                  link: ROUTES.EPISODE_ONE,
+                },
+                {
+                  icon: <CreditCard className="w-6 h-6" />,
+                  title: "POS Bridge",
+                  desc: "Spend digital rewards at physical merchant terminals across Africa.",
+                  link: ROUTES.SAC1_POS_BRIDGE,
+                },
+                {
+                  icon: <Shield className="w-6 h-6" />,
+                  title: "Bank-Grade Security",
+                  desc: "AES-256 encryption with blockchain-verified session integrity.",
+                  link: ROUTES.ECOSYSTEM,
+                },
+                {
+                  icon: <TrendingUp className="w-6 h-6" />,
+                  title: "Transparent Economics",
+                  desc: "Near-zero gas fees, on-chain audits, and zero hidden costs.",
+                  link: ROUTES.DIGITAL_ASSETS,
+                },
+                {
+                  icon: <Globe className="w-6 h-6" />,
+                  title: "African Heritage",
+                  desc: "Stories rooted in African culture, history, and contemporary leadership challenges.",
+                  link: ROUTES.ABOUT,
+                },
+                {
+                  icon: <Sparkles className="w-6 h-6" />,
+                  title: "Digital Ownership",
+                  desc: "True NFT ownership — create, trade, and own verifiable digital assets.",
+                  link: ROUTES.DIGITAL_ASSETS,
+                },
+              ].map((feature, index) => (
+                <Link key={index} to={feature.link} className={`group animate-on-scroll delay-${(index % 3) * 100}`}>
+                  <div className="card-premium h-full flex flex-col">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                      {feature.icon}
+                    </div>
+                    <h3 className="font-bold text-lg mb-3 text-white group-hover:text-accent-light transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed flex-grow">
+                      {feature.desc}
+                    </p>
+                    <div className="mt-5 text-accent-light font-medium text-sm flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                      Learn more
+                      <ChevronRight className="w-4 h-4" />
+                    </div>
+                  </div>
                 </Link>
-                <Link to={ROUTES.PARTNERSHIP}>
-                  <button className="btn-outline-glow px-8 py-4 text-base font-semibold">
-                    Our Partnership
-                  </button>
-                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════ PARTNERSHIP + CTA ═══════════════ */}
+        <WaveDivider fill="#111927" />
+        <section className="bg-navy-light pb-24 pt-8">
+          <div className="container-max">
+            <div className="relative rounded-3xl overflow-hidden border border-accent/15 animate-on-scroll">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${worldDunga})` }}
+              />
+              <div className="absolute inset-0 bg-navy/85 backdrop-blur-sm" />
+              <div className="absolute top-0 left-1/3 w-80 h-80 bg-accent/8 rounded-full blur-[120px]" />
+
+              <div className="relative px-8 py-14 md:py-20 text-center">
+                <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-4">
+                  Ready to Enter the World of FAPGAME?
+                </h2>
+                <p className="text-slate-300 mb-8 max-w-lg mx-auto text-lg">
+                  Join thousands of pioneers exploring Africa's future through
+                  gaming, blockchain, and cultural storytelling.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Link to={ROUTES.EPISODE_ONE}>
+                    <button className="btn-glow px-8 py-4 text-base font-semibold inline-flex items-center gap-2">
+                      Explore Episode One <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </Link>
+                  <Link to={ROUTES.PARTNERSHIP}>
+                    <button className="btn-outline-glow px-8 py-4 text-base font-semibold">
+                      Our Partnership
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </Layout>
   );
 };
@@ -469,8 +471,8 @@ export const NotFoundPage: React.FC = () => {
     <Layout>
       <section className="min-h-[600px] flex items-center py-20">
         <div className="container-max text-center">
-          <h1 className="text-8xl font-extrabold text-gradient mb-4">404</h1>
-          <h2 className="text-3xl font-bold text-white mb-4">Page Not Found</h2>
+          <h1 className="text-6xl md:text-8xl font-extrabold text-gradient mb-4">404</h1>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Page Not Found</h2>
           <p className="text-lg text-slate-400 mb-8">
             The page you're looking for doesn't exist or has been moved.
           </p>
