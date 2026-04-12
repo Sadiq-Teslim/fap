@@ -3,6 +3,11 @@ import { Button } from "../../shared/ui";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../shared/constants";
 import { useScrollAnimation } from "../../shared/hooks/useScrollAnimation";
+import { GlitchText } from "../../shared/components/GlitchText";
+import { TiltCard } from "../../shared/components/TiltCard";
+import { FloatingParticles } from "../../shared/components/FloatingParticles";
+import { Typewriter } from "../../shared/components/Typewriter";
+import { useParallax } from "../../shared/hooks/useParallax";
 import worldDunga from "../../assets/materials/world-dunga-progress.jpg";
 import {
   Zap,
@@ -38,6 +43,7 @@ const WaveDivider: React.FC<{ fill?: string }> = ({ fill = "#111927" }) => (
    ═════════════════════════════════════════════════ */
 const EpisodeOnePageComp: React.FC = () => {
   const scrollRef = useScrollAnimation();
+  const parallaxHero = useParallax(0.12);
 
   return (
     <Layout>
@@ -46,8 +52,9 @@ const EpisodeOnePageComp: React.FC = () => {
         <section className="relative py-28 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-hero" />
           <div className="absolute bottom-10 right-20 w-96 h-96 bg-accent/5 rounded-full blur-[120px] animate-float" />
+          <FloatingParticles count={25} />
           <div className="container-max relative z-10">
-            <div className="text-center max-w-3xl mx-auto">
+            <div ref={parallaxHero} className="text-center max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5 animate-on-scroll">
                 <Gamepad2 className="w-4 h-4 text-accent-light" />
                 <span className="text-accent-light font-medium text-sm">
@@ -55,12 +62,14 @@ const EpisodeOnePageComp: React.FC = () => {
                 </span>
               </div>
               <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight animate-on-scroll delay-100">
-                Step into <span className="text-gradient">Future Africa</span>
+                Step into <GlitchText text="Future Africa" className="text-gradient" />
               </h1>
               <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed animate-on-scroll delay-200">
-                Africa has evolved. You are a Pioneer tasked with building the
-                first decentralized digital hubs. Manage resources, claim
-                territory, and secure your legacy.
+                <Typewriter
+                  text="Africa has evolved. You are a Pioneer tasked with building the first decentralized digital hubs. Manage resources, claim territory, and secure your legacy."
+                  speed={25}
+                  delay={600}
+                />
               </p>
             </div>
           </div>
@@ -77,7 +86,7 @@ const EpisodeOnePageComp: React.FC = () => {
                 </p>
                 <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6 leading-tight">
                   Build, Compete &amp;{" "}
-                  <span className="text-gradient">Earn Real Value</span>
+                  <GlitchText text="Earn Real Value" className="text-gradient" />
                 </h2>
                 <p className="text-slate-400 text-lg leading-relaxed mb-6">
                   In Episode One, every action you take — from mining resources to
@@ -93,7 +102,7 @@ const EpisodeOnePageComp: React.FC = () => {
               </div>
 
               {/* Visual — constrained image */}
-              <div className="animate-on-scroll delay-200">
+              <TiltCard className="animate-on-scroll delay-200">
                 <div className="relative rounded-3xl overflow-hidden border border-navy-border/60 shadow-card max-h-[400px]">
                   <img
                     src={worldDunga}
@@ -107,7 +116,7 @@ const EpisodeOnePageComp: React.FC = () => {
                     <p className="text-slate-300 text-sm">Episode One Open World</p>
                   </div>
                 </div>
-              </div>
+              </TiltCard>
             </div>
           </div>
         </section>
@@ -121,7 +130,7 @@ const EpisodeOnePageComp: React.FC = () => {
                 Gameplay
               </p>
               <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6">
-                Game Mechanics
+                <GlitchText text="Game Mechanics" className="text-white" />
               </h2>
             </div>
 
@@ -146,17 +155,19 @@ const EpisodeOnePageComp: React.FC = () => {
                     "Our proprietary oracle verifies your wins and triggers instant smart-contract payouts.",
                 },
               ].map((mechanic, index) => (
-                <div key={index} className={`card-premium group h-full animate-on-scroll delay-${index * 100}`}>
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
-                    {mechanic.icon}
+                <TiltCard key={index} className={`animate-on-scroll delay-${index * 100}`}>
+                  <div className="card-premium group h-full">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                      {mechanic.icon}
+                    </div>
+                    <h3 className="text-lg font-bold mb-3 text-white group-hover:text-accent-light transition-colors">
+                      {mechanic.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
+                      {mechanic.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold mb-3 text-white group-hover:text-accent-light transition-colors">
-                    {mechanic.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
-                    {mechanic.description}
-                  </p>
-                </div>
+                </TiltCard>
               ))}
             </div>
 
@@ -176,6 +187,7 @@ const EpisodeOnePage: React.FC = EpisodeOnePageComp;
    ═════════════════════════════════════════════════ */
 const SAC1POSBridgePageComp: React.FC = () => {
   const scrollRef = useScrollAnimation();
+  const parallaxHero = useParallax(0.12);
 
   return (
     <Layout>
@@ -184,8 +196,9 @@ const SAC1POSBridgePageComp: React.FC = () => {
         <section className="relative py-28 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-hero" />
           <div className="absolute top-10 left-20 w-80 h-80 bg-primary/5 rounded-full blur-[100px] animate-float" />
+          <FloatingParticles count={20} />
           <div className="container-max relative z-10">
-            <div className="text-center max-w-3xl mx-auto">
+            <div ref={parallaxHero} className="text-center max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5 animate-on-scroll">
                 <CreditCard className="w-4 h-4 text-accent-light" />
                 <span className="text-accent-light font-medium text-sm">
@@ -194,12 +207,14 @@ const SAC1POSBridgePageComp: React.FC = () => {
               </div>
               <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight animate-on-scroll delay-100">
                 Beyond the Screen:{" "}
-                <span className="text-gradient">Real-World Liquidity</span>
+                <GlitchText text="Real-World Liquidity" className="text-gradient" />
               </h1>
               <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed animate-on-scroll delay-200">
-                Most Web3 projects fail because their tokens have no "real-world"
-                exit. FAPGAME solves this through our Lead Partner's SAC1 POS
-                infrastructure.
+                <Typewriter
+                  text="Most Web3 projects fail because their tokens have no real-world exit. FAPGAME solves this through our Lead Partner's SAC1 POS infrastructure."
+                  speed={25}
+                  delay={600}
+                />
               </p>
             </div>
           </div>
@@ -214,7 +229,7 @@ const SAC1POSBridgePageComp: React.FC = () => {
                 The Process
               </p>
               <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6">
-                How It Works
+                <GlitchText text="How It Works" className="text-white" />
               </h2>
             </div>
 
@@ -239,47 +254,51 @@ const SAC1POSBridgePageComp: React.FC = () => {
                   desc: "Scan your code at any partner SAC1 POS terminal to pay for services.",
                 },
               ].map((item, i) => (
-                <div key={i} className={`group relative animate-on-scroll delay-${i * 100}`}>
-                  <div className="absolute -top-4 -left-2 text-8xl font-extrabold text-white/[0.03] select-none pointer-events-none leading-none">
-                    {item.step}
-                  </div>
-                  <div className="card-premium relative h-full">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-accent/20 bg-accent/8 mb-5">
-                      <span className="text-accent-light font-bold text-xs">
-                        STEP {item.step}
-                      </span>
+                <TiltCard key={i} className={`animate-on-scroll delay-${i * 100}`}>
+                  <div className="group relative">
+                    <div className="absolute -top-4 -left-2 text-8xl font-extrabold text-white/[0.03] select-none pointer-events-none leading-none">
+                      {item.step}
                     </div>
-                    <div className="w-11 h-11 rounded-xl bg-navy-mid border border-navy-border flex items-center justify-center text-accent-light mb-4 group-hover:bg-accent/10 group-hover:border-accent/30 transition-all duration-300">
-                      {item.icon}
+                    <div className="card-premium relative h-full">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-accent/20 bg-accent/8 mb-5">
+                        <span className="text-accent-light font-bold text-xs">
+                          STEP {item.step}
+                        </span>
+                      </div>
+                      <div className="w-11 h-11 rounded-xl bg-navy-mid border border-navy-border flex items-center justify-center text-accent-light mb-4 group-hover:bg-accent/10 group-hover:border-accent/30 transition-all duration-300">
+                        {item.icon}
+                      </div>
+                      <h3 className="font-bold text-white text-lg mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-slate-400 text-sm leading-relaxed">
+                        {item.desc}
+                      </p>
                     </div>
-                    <h3 className="font-bold text-white text-lg mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
-                      {item.desc}
-                    </p>
                   </div>
-                </div>
+                </TiltCard>
               ))}
             </div>
 
             {/* Security */}
-            <div className="card-premium flex flex-col md:flex-row gap-6 items-start animate-on-scroll">
-              <div className="w-14 h-14 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light flex-shrink-0">
-                <Lock className="w-7 h-7" />
+            <TiltCard className="animate-on-scroll">
+              <div className="card-premium flex flex-col md:flex-row gap-6 items-start">
+                <div className="w-14 h-14 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light flex-shrink-0">
+                  <Lock className="w-7 h-7" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold mb-3 text-white">
+                    <GlitchText text="Security Features" className="text-white" />
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed">
+                    Multi-layer AES-256 encryption ensures that your game-earned
+                    wealth is as secure as a traditional bank account, but with the
+                    freedom of decentralization. All sessions are
+                    blockchain-verified.
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-3 text-white">
-                  Security Features
-                </h3>
-                <p className="text-slate-400 leading-relaxed">
-                  Multi-layer AES-256 encryption ensures that your game-earned
-                  wealth is as secure as a traditional bank account, but with the
-                  freedom of decentralization. All sessions are
-                  blockchain-verified.
-                </p>
-              </div>
-            </div>
+            </TiltCard>
           </div>
         </section>
       </div>
@@ -293,6 +312,7 @@ const SAC1POSBridgePage: React.FC = SAC1POSBridgePageComp;
    ═════════════════════════════════════════════════ */
 const DigitalAssetsPageComp: React.FC = () => {
   const scrollRef = useScrollAnimation();
+  const parallaxHero = useParallax(0.12);
 
   const rarityColors = [
     "text-slate-400 border-slate-600/30 bg-slate-600/10",
@@ -309,8 +329,9 @@ const DigitalAssetsPageComp: React.FC = () => {
         <section className="relative py-28 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-hero" />
           <div className="absolute bottom-20 left-20 w-72 h-72 bg-accent/5 rounded-full blur-[100px] animate-float-delayed" />
+          <FloatingParticles count={20} />
           <div className="container-max relative z-10">
-            <div className="text-center max-w-3xl mx-auto">
+            <div ref={parallaxHero} className="text-center max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5 animate-on-scroll">
                 <Gem className="w-4 h-4 text-accent-light" />
                 <span className="text-accent-light font-medium text-sm">
@@ -319,11 +340,14 @@ const DigitalAssetsPageComp: React.FC = () => {
               </div>
               <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight animate-on-scroll delay-100">
                 True Ownership.{" "}
-                <span className="text-gradient">Immutable Value.</span>
+                <GlitchText text="Immutable Value." className="text-gradient" />
               </h1>
               <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed animate-on-scroll delay-200">
-                In FAPGAME, your items are yours. Period. Every piece of land, tool,
-                or skin is a unique NFT minted on the SAC1 blockchain.
+                <Typewriter
+                  text="In FAPGAME, your items are yours. Period. Every piece of land, tool, or skin is a unique NFT minted on the SAC1 blockchain."
+                  speed={25}
+                  delay={600}
+                />
               </p>
             </div>
           </div>
@@ -338,7 +362,7 @@ const DigitalAssetsPageComp: React.FC = () => {
                 NFT Utility
               </p>
               <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6">
-                Asset Classes
+                <GlitchText text="Asset Classes" className="text-white" />
               </h2>
               <p className="text-slate-400 max-w-2xl mx-auto text-lg">
                 Trade, sell, or lease your assets to other pioneers. As the
@@ -365,17 +389,19 @@ const DigitalAssetsPageComp: React.FC = () => {
                   desc: "Character customization NFTs that signal your Pioneer status.",
                 },
               ].map((asset, index) => (
-                <div key={index} className={`card-premium group h-full animate-on-scroll delay-${index * 100}`}>
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
-                    {asset.icon}
+                <TiltCard key={index} className={`animate-on-scroll delay-${index * 100}`}>
+                  <div className="card-premium group h-full">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                      {asset.icon}
+                    </div>
+                    <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-light transition-colors">
+                      {asset.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
+                      {asset.desc}
+                    </p>
                   </div>
-                  <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-light transition-colors">
-                    {asset.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
-                    {asset.desc}
-                  </p>
-                </div>
+                </TiltCard>
               ))}
             </div>
 
@@ -391,12 +417,13 @@ const DigitalAssetsPageComp: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {["Common", "Uncommon", "Rare", "Epic", "Legendary"].map(
                 (rarity, index) => (
-                  <div
-                    key={index}
-                    className={`rounded-2xl border p-5 text-center transition-all duration-300 hover:-translate-y-1 animate-on-scroll delay-${(index % 5) * 100} ${rarityColors[index]}`}
-                  >
-                    <p className="font-bold text-lg">{rarity}</p>
-                  </div>
+                  <TiltCard key={index} className={`animate-on-scroll delay-${(index % 5) * 100}`}>
+                    <div
+                      className={`rounded-2xl border p-5 text-center transition-all duration-300 ${rarityColors[index]}`}
+                    >
+                      <p className="font-bold text-lg">{rarity}</p>
+                    </div>
+                  </TiltCard>
                 ),
               )}
             </div>

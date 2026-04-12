@@ -3,6 +3,11 @@ import { Layout } from "../../app/components/Layout";
 import { Input, Textarea, Select } from "../../shared/ui";
 import { COMPANY } from "../../shared/constants";
 import { useScrollAnimation } from "../../shared/hooks/useScrollAnimation";
+import { GlitchText } from "../../shared/components/GlitchText";
+import { TiltCard } from "../../shared/components/TiltCard";
+import { FloatingParticles } from "../../shared/components/FloatingParticles";
+import { Typewriter } from "../../shared/components/Typewriter";
+import { useParallax } from "../../shared/hooks/useParallax";
 import { Mail, MapPin, Phone, ArrowRight, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
 /* ── Wave divider ── */
@@ -27,6 +32,7 @@ const FORMSPREE_URL = "https://formspree.io/f/xgopjjle";
 
 export const ContactPage: React.FC = () => {
   const scrollRef = useScrollAnimation();
+  const parallaxHero = useParallax(0.12);
 
   const [values, setValues] = useState({
     name: "",
@@ -76,8 +82,9 @@ export const ContactPage: React.FC = () => {
         <section className="relative py-28 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-hero" />
           <div className="absolute top-20 left-20 w-72 h-72 bg-accent/5 rounded-full blur-[100px] animate-float" />
+          <FloatingParticles count={20} />
           <div className="container-max relative z-10">
-            <div className="text-center max-w-3xl mx-auto">
+            <div ref={parallaxHero} className="text-center max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5 animate-on-scroll">
                 <Mail className="w-4 h-4 text-accent-light" />
                 <span className="text-accent-light font-medium text-sm">
@@ -85,11 +92,14 @@ export const ContactPage: React.FC = () => {
                 </span>
               </div>
               <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight animate-on-scroll delay-100">
-                Be Part of the <span className="text-gradient">Future</span>
+                Be Part of the <GlitchText text="Future" className="text-gradient" />
               </h1>
               <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed animate-on-scroll delay-200">
-                {COMPANY.NAME} is open to strategic collaborations that align with
-                the FAPGAME mission.
+                <Typewriter
+                  text={`${COMPANY.NAME} is open to strategic collaborations that align with the FAPGAME mission.`}
+                  speed={25}
+                  delay={600}
+                />
               </p>
             </div>
           </div>
@@ -130,15 +140,17 @@ export const ContactPage: React.FC = () => {
                   ),
                 },
               ].map((card, i) => (
-                <div key={i} className={`card-premium group animate-on-scroll delay-${i * 100}`}>
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
-                    {card.icon}
+                <TiltCard key={i} className={`animate-on-scroll delay-${i * 100}`}>
+                  <div className="card-premium group h-full">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                      {card.icon}
+                    </div>
+                    <h3 className="font-bold text-lg mb-2 text-white">
+                      {card.title}
+                    </h3>
+                    <div className="text-sm">{card.content}</div>
                   </div>
-                  <h3 className="font-bold text-lg mb-2 text-white">
-                    {card.title}
-                  </h3>
-                  <div className="text-sm">{card.content}</div>
-                </div>
+                </TiltCard>
               ))}
             </div>
 
@@ -146,7 +158,7 @@ export const ContactPage: React.FC = () => {
             <div className="max-w-2xl mx-auto animate-on-scroll">
               <div className="card-premium !p-8 md:!p-10">
                 <h2 className="text-xl md:text-2xl font-extrabold mb-8 text-white">
-                  Send Us a Message
+                  <GlitchText text="Send Us a Message" className="text-white" />
                 </h2>
 
                 {/* Success state */}

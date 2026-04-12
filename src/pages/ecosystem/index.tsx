@@ -1,5 +1,11 @@
 import { Layout } from "../../app/components/Layout";
 import { useScrollAnimation } from "../../shared/hooks/useScrollAnimation";
+import { GlitchText } from "../../shared/components/GlitchText";
+import { TiltCard } from "../../shared/components/TiltCard";
+import { FloatingParticles } from "../../shared/components/FloatingParticles";
+import { Typewriter } from "../../shared/components/Typewriter";
+import { useParallax } from "../../shared/hooks/useParallax";
+import { useCountUp } from "../../shared/hooks/useCountUp";
 import {
   Zap,
   Database,
@@ -29,8 +35,33 @@ const WaveDivider: React.FC<{ fill?: string }> = ({ fill = "#111927" }) => (
   </div>
 );
 
+/* ── Animated stat ── */
+const EcoStat: React.FC<{
+  end: number;
+  suffix?: string;
+  prefix?: string;
+  label: string;
+}> = ({ end, suffix = "", prefix = "", label }) => {
+  const [ref, displayValue] = useCountUp(end, 2000, suffix, prefix);
+
+  return (
+    <TiltCard>
+      <div
+        ref={ref as React.RefObject<HTMLDivElement>}
+        className="card-premium text-center group"
+      >
+        <p className="text-2xl md:text-3xl font-extrabold text-white mb-1 group-hover:text-accent-light transition-colors">
+          {displayValue}
+        </p>
+        <p className="text-sm text-slate-500">{label}</p>
+      </div>
+    </TiltCard>
+  );
+};
+
 export const EcosystemPage: React.FC = () => {
   const scrollRef = useScrollAnimation();
+  const parallaxHero = useParallax(0.12);
 
   return (
     <Layout>
@@ -39,8 +70,9 @@ export const EcosystemPage: React.FC = () => {
         <section className="relative py-28 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-hero" />
           <div className="absolute top-20 right-20 w-80 h-80 bg-accent/5 rounded-full blur-[100px] animate-float" />
+          <FloatingParticles count={25} />
           <div className="container-max relative z-10">
-            <div className="text-center max-w-3xl mx-auto">
+            <div ref={parallaxHero} className="text-center max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5 animate-on-scroll">
                 <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
                 <span className="text-accent-light font-medium text-sm">
@@ -49,11 +81,14 @@ export const EcosystemPage: React.FC = () => {
               </div>
               <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight animate-on-scroll delay-100">
                 A Closed-Loop{" "}
-                <span className="text-gradient">Digital Economy</span>
+                <GlitchText text="Digital Economy" className="text-gradient" />
               </h1>
               <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed animate-on-scroll delay-200">
-                FAPGAME is built on a "Triangle of Utility" that ensures value never
-                leaves the hands of our community.
+                <Typewriter
+                  text={`FAPGAME is built on a "Triangle of Utility" that ensures value never leaves the hands of our community.`}
+                  speed={25}
+                  delay={600}
+                />
               </p>
             </div>
           </div>
@@ -68,7 +103,7 @@ export const EcosystemPage: React.FC = () => {
                 Core Architecture
               </p>
               <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6">
-                The Triangle of Utility
+                The <GlitchText text="Triangle of Utility" className="text-white" />
               </h2>
             </div>
 
@@ -111,28 +146,27 @@ export const EcosystemPage: React.FC = () => {
                   ],
                 },
               ].map((component, index) => (
-                <div
-                  key={index}
-                  className={`card-premium group h-full flex flex-col animate-on-scroll delay-${index * 100}`}
-                >
-                  <div className="w-14 h-14 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-6 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
-                    {component.icon}
+                <TiltCard key={index} className={`animate-on-scroll delay-${index * 100}`}>
+                  <div className="card-premium group h-full flex flex-col">
+                    <div className="w-14 h-14 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-6 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                      {component.icon}
+                    </div>
+                    <h3 className="text-xl font-bold mb-3 text-white">
+                      {component.title}
+                    </h3>
+                    <p className="text-slate-400 mb-6 text-sm leading-relaxed">
+                      {component.description}
+                    </p>
+                    <ul className="space-y-2.5 mt-auto">
+                      {component.details.map((detail, i) => (
+                        <li key={i} className="flex items-start gap-2.5 text-sm">
+                          <Zap className="w-4 h-4 text-accent-light flex-shrink-0 mt-0.5" />
+                          <span className="text-slate-300">{detail}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-white">
-                    {component.title}
-                  </h3>
-                  <p className="text-slate-400 mb-6 text-sm leading-relaxed">
-                    {component.description}
-                  </p>
-                  <ul className="space-y-2.5 mt-auto">
-                    {component.details.map((detail, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm">
-                        <Zap className="w-4 h-4 text-accent-light flex-shrink-0 mt-0.5" />
-                        <span className="text-slate-300">{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                </TiltCard>
               ))}
             </div>
 
@@ -169,7 +203,7 @@ export const EcosystemPage: React.FC = () => {
                 Advantages
               </p>
               <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6">
-                Ecosystem Benefits
+                Ecosystem <GlitchText text="Benefits" className="text-white" />
               </h2>
             </div>
 
@@ -212,23 +246,25 @@ export const EcosystemPage: React.FC = () => {
                     "Economic incentives are fairly distributed among all ecosystem participants.",
                 },
               ].map((benefit, index) => (
-                <div key={index} className={`card-premium group animate-on-scroll delay-${(index % 3) * 100}`}>
-                  <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-4 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
-                    {benefit.icon}
+                <TiltCard key={index} className={`animate-on-scroll delay-${(index % 3) * 100}`}>
+                  <div className="card-premium group h-full">
+                    <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-4 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                      {benefit.icon}
+                    </div>
+                    <h3 className="text-lg font-bold mb-2 text-white group-hover:text-accent-light transition-colors">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
+                      {benefit.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold mb-2 text-white group-hover:text-accent-light transition-colors">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
-                    {benefit.description}
-                  </p>
-                </div>
+                </TiltCard>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ═══ STATS ═══ */}
+        {/* ═══ STATS — animated counters ═══ */}
         <WaveDivider fill="#111927" />
         <section className="bg-navy-light pb-24 pt-8">
           <div className="container-max">
@@ -242,19 +278,10 @@ export const EcosystemPage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-              {[
-                { number: "99.9%", label: "Network Uptime" },
-                { number: "<1ms", label: "Transaction Finality" },
-                { number: "~0", label: "Gas Fees" },
-                { number: "\u221E", label: "Scalability" },
-              ].map((stat, index) => (
-                <div key={index} className={`card-premium text-center group animate-on-scroll delay-${index * 100}`}>
-                  <p className="text-2xl md:text-3xl font-extrabold text-white mb-1 group-hover:text-accent-light transition-colors">
-                    {stat.number}
-                  </p>
-                  <p className="text-sm text-slate-500">{stat.label}</p>
-                </div>
-              ))}
+              <EcoStat end={99} suffix=".9%" label="Network Uptime" />
+              <EcoStat end={1} prefix="<" suffix="ms" label="Transaction Finality" />
+              <EcoStat end={0} prefix="~" label="Gas Fees" />
+              <EcoStat end={100} suffix="%" label="Scalability" />
             </div>
           </div>
         </section>

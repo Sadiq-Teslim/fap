@@ -4,6 +4,12 @@ import { Button } from "../../shared/ui";
 import { Layout } from "../../app/components/Layout";
 import { useState, useEffect, useRef } from "react";
 import { useScrollAnimation } from "../../shared/hooks/useScrollAnimation";
+import { useCountUp } from "../../shared/hooks/useCountUp";
+import { GlitchText } from "../../shared/components/GlitchText";
+import { TiltCard } from "../../shared/components/TiltCard";
+import { FloatingParticles } from "../../shared/components/FloatingParticles";
+import { Typewriter } from "../../shared/components/Typewriter";
+import { useParallax } from "../../shared/hooks/useParallax";
 import {
   ArrowRight,
   Gamepad2,
@@ -19,7 +25,6 @@ import {
 } from "lucide-react";
 
 /* ── Assets ── */
-import heroWorld from "../../assets/materials/world-freedom-city.jpg";
 import worldDunga from "../../assets/materials/world-dunga-progress.jpg";
 import worldLiberation from "../../assets/materials/world-liberation.jpg";
 import worldTransform from "../../assets/materials/world-city-transform.jpg";
@@ -39,6 +44,7 @@ import clip2 from "../../assets/materials/gameplay-clip-2.mp4";
 import clip3 from "../../assets/materials/gameplay-clip-3.mp4";
 import clip4 from "../../assets/materials/gameplay-clip-4.mp4";
 import clip5 from "../../assets/materials/gameplay-clip-5.mp4";
+import heroClip from "../../assets/materials/gameplay-clip-8.mp4";
 
 /* ── Wavy SVG section divider ── */
 const WaveDivider: React.FC<{ fill?: string }> = ({ fill = "#111927" }) => (
@@ -161,16 +167,44 @@ const GameplayCarousel: React.FC = () => {
   );
 };
 
+/* ── Animated stat counter component ── */
+const StatCounter: React.FC<{
+  end: number;
+  suffix?: string;
+  prefix?: string;
+  label: string;
+  icon: React.ReactNode;
+}> = ({ end, suffix = "", prefix = "", label, icon }) => {
+  const [ref, displayValue] = useCountUp(end, 2000, suffix, prefix);
+
+  return (
+    <TiltCard>
+      <div
+        ref={ref as React.RefObject<HTMLDivElement>}
+        className="card-premium text-center group"
+      >
+        <div className="w-10 h-10 rounded-xl bg-navy-mid border border-navy-border flex items-center justify-center text-accent-light mx-auto mb-3 group-hover:bg-accent/10 group-hover:border-accent/30 transition-all duration-300">
+          {icon}
+        </div>
+        <p className="text-2xl md:text-3xl font-extrabold text-white">
+          {displayValue}
+        </p>
+        <p className="text-xs text-slate-500 mt-1">{label}</p>
+      </div>
+    </TiltCard>
+  );
+};
+
 /* ── Characters data ── */
 const characters = [
-  { img: charKing, name: "The Sovereign" },
-  { img: charAngel, name: "The Guardian" },
-  { img: charRedChief, name: "The Chief" },
-  { img: charWarrior, name: "The Warrior" },
-  { img: charGoldNoble, name: "The Noble" },
-  { img: charGreenQueen, name: "The Queen" },
-  { img: charElder, name: "The Elder" },
-  { img: charRedKing, name: "The Conqueror" },
+  { img: charKing, name: "The Sovereign", role: "Ruler", desc: "Commands the throne with wisdom and strength. His decrees shape the fate of nations." },
+  { img: charAngel, name: "The Guardian", role: "Protector", desc: "A celestial force standing between the people and the forces of darkness." },
+  { img: charRedChief, name: "The Chief", role: "Warlord", desc: "Leads the resistance with fiery passion and unmatched combat prowess." },
+  { img: charWarrior, name: "The Warrior", role: "Champion", desc: "Bonded with the lion spirit, embodying courage and the wild heart of Africa." },
+  { img: charGoldNoble, name: "The Noble", role: "Strategist", desc: "Master of trade and diplomacy, weaving alliances that shift the balance of power." },
+  { img: charGreenQueen, name: "The Queen", role: "Mystic", desc: "Channels the ancestral magic of the land, bending nature to her will." },
+  { img: charElder, name: "The Elder", role: "Oracle", desc: "Keeper of forgotten knowledge and the ancient prophecies that guide the chosen." },
+  { img: charRedKing, name: "The Conqueror", role: "Warlord", desc: "An unstoppable force of ambition, forging empires from the ashes of the old world." },
 ];
 
 /* ── World scenes ── */
@@ -183,21 +217,31 @@ const worldScenes = [
 
 export const HomePage: React.FC = () => {
   const scrollRef = useScrollAnimation();
+  const parallaxHero = useParallax(0.12);
+  const parallaxCta = useParallax(0.1);
 
   return (
     <Layout>
       <div ref={scrollRef}>
-        {/* ═══════════════ HERO — Full visual, centered ═══════════════ */}
+        {/* ═══════════════ HERO — Video background ═══════════════ */}
         <section className="relative min-h-screen flex items-center overflow-hidden">
-          {/* Background image */}
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${heroWorld})` }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/60 to-navy" />
+          {/* Video background */}
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src={heroClip} type="video/mp4" />
+          </video>
+          {/* Dark overlays */}
+          <div className="absolute inset-0 bg-gradient-to-b from-navy/75 via-navy/60 to-navy" />
+          <div className="absolute inset-0 bg-navy/30" />
+          <FloatingParticles count={40} />
 
           <div className="container-max relative z-10 py-20 w-full">
-            <div className="max-w-3xl mx-auto text-center">
+            <div ref={parallaxHero} className="max-w-3xl mx-auto text-center">
               {/* Pill */}
               <div className="inline-flex items-center gap-2 mb-8 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm animate-on-scroll">
                 <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
@@ -206,18 +250,24 @@ export const HomePage: React.FC = () => {
                 </span>
               </div>
 
+              {/* Glitch headline */}
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 leading-[1.1] tracking-tight animate-on-scroll delay-100">
                 <span className="text-white">Bridging the Gap Between</span>
                 <br />
-                <span className="text-gradient">Virtual Achievement</span>
+                <GlitchText
+                  text="Virtual Achievement"
+                  className="text-gradient"
+                />
                 <br />
                 <span className="text-white">&amp; Real-World Prosperity</span>
               </h1>
 
               <p className="text-base md:text-lg text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed animate-on-scroll delay-200">
-                Welcome to FAPGAME. A revolutionary open-world action-adventure
-                video game built on a Web3 ecosystem, powered by{" "}
-                {COMPANY.PARTNER_NAME}'s SAC1.
+                <Typewriter
+                  text={`Welcome to FAPGAME. A revolutionary open-world action-adventure video game built on a Web3 ecosystem, powered by ${COMPANY.PARTNER_NAME}'s SAC1.`}
+                  speed={25}
+                  delay={800}
+                />
               </p>
 
               {/* CTAs */}
@@ -241,16 +291,48 @@ export const HomePage: React.FC = () => {
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-navy to-transparent" />
         </section>
 
-        {/* ═══════════════ GAMEPLAY CLIPS ═══════════════ */}
+        {/* ═══════════════ STATS — Animated counters ═══════════════ */}
         <WaveDivider fill="#111927" />
-        <section className="bg-navy-light pb-24 pt-8">
+        <section className="bg-navy-light pb-16 pt-8">
+          <div className="container-max">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+              <StatCounter
+                end={10}
+                suffix="K+"
+                label="Active Pioneers"
+                icon={<Gamepad2 className="w-5 h-5" />}
+              />
+              <StatCounter
+                end={99}
+                suffix=".9%"
+                label="Network Uptime"
+                icon={<Shield className="w-5 h-5" />}
+              />
+              <StatCounter
+                end={500}
+                suffix="+"
+                label="POS Terminals"
+                icon={<CreditCard className="w-5 h-5" />}
+              />
+              <StatCounter
+                end={5}
+                suffix="/5"
+                label="Audits Passed"
+                icon={<TrendingUp className="w-5 h-5" />}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════ GAMEPLAY CLIPS ═══════════════ */}
+        <section className="bg-navy-light pb-24">
           <div className="container-max">
             <div className="text-center mb-12 animate-on-scroll">
               <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">
                 See It In Action
               </p>
               <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-4">
-                Gameplay Preview
+                <GlitchText text="Gameplay Preview" className="text-white" />
               </h2>
               <p className="text-slate-400 max-w-2xl mx-auto text-lg">
                 Experience the immersive world of FAPGAME through cinematic
@@ -264,7 +346,7 @@ export const HomePage: React.FC = () => {
           </div>
         </section>
 
-        {/* ═══════════════ CHARACTERS ═══════════════ */}
+        {/* ═══════════════ CHARACTERS — with tilt cards ═══════════════ */}
         <WaveDivider fill="#0B1121" />
         <section className="bg-navy pb-24 pt-8">
           <div className="container-max">
@@ -283,24 +365,45 @@ export const HomePage: React.FC = () => {
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
               {characters.map((char, i) => (
-                <div key={i} className={`group relative animate-on-scroll delay-${(i % 4) * 100}`}>
-                  <div className="rounded-2xl overflow-hidden border border-navy-border/60 shadow-card aspect-[3/4]">
-                    <img
-                      src={char.img}
-                      alt={char.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-2xl" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <p className="text-white font-bold text-sm md:text-base">
-                        {char.name}
-                      </p>
+                <div
+                  key={i}
+                  className={`char-flip-card aspect-[3/4] animate-on-scroll delay-${(i % 4) * 100}`}
+                  onClick={(e) => {
+                    // Toggle flip on tap for mobile
+                    const card = e.currentTarget;
+                    card.classList.toggle("flipped");
+                  }}
+                >
+                  <div className="char-flip-inner">
+                    {/* Front */}
+                    <div className="char-flip-front">
+                      <img
+                        src={char.img}
+                        alt={char.name}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <p className="text-white font-bold text-sm md:text-base">
+                          {char.name}
+                        </p>
+                      </div>
+                    </div>
+                    {/* Back */}
+                    <div className="char-flip-back bg-navy-light border border-navy-border flex flex-col items-center justify-center p-5 text-center">
+                      <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center mb-3">
+                        <Sparkles className="w-5 h-5 text-accent-light" />
+                      </div>
+                      <h4 className="text-white font-bold text-base mb-1">{char.name}</h4>
+                      <span className="text-accent-light text-xs font-semibold uppercase tracking-wider mb-3">{char.role}</span>
+                      <p className="text-slate-400 text-xs leading-relaxed">{char.desc}</p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
+            <p className="text-center text-slate-600 text-xs mt-4 sm:hidden">Tap a card to reveal character details</p>
           </div>
         </section>
 
@@ -323,31 +426,33 @@ export const HomePage: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {worldScenes.map((scene, i) => (
-                <div key={i} className={`group relative rounded-2xl overflow-hidden border border-navy-border/60 shadow-card animate-on-scroll delay-${(i % 2) * 200}`}>
-                  <div className="aspect-video">
-                    <img
-                      src={scene.img}
-                      alt={scene.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      loading="lazy"
-                    />
+                <TiltCard key={i} className={`animate-on-scroll delay-${(i % 2) * 200}`}>
+                  <div className="group relative rounded-2xl overflow-hidden border border-navy-border/60 shadow-card">
+                    <div className="aspect-video">
+                      <img
+                        src={scene.img}
+                        alt={scene.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 className="text-white font-bold text-lg md:text-xl mb-1">
+                        {scene.title}
+                      </h3>
+                      <p className="text-slate-300 text-sm leading-relaxed">
+                        {scene.desc}
+                      </p>
+                    </div>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-white font-bold text-lg md:text-xl mb-1">
-                      {scene.title}
-                    </h3>
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      {scene.desc}
-                    </p>
-                  </div>
-                </div>
+                </TiltCard>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ═══════════════ WHAT MAKES US DIFFERENT ═══════════════ */}
+        {/* ═══════════════ WHY FAPGAME — with tilt cards ═══════════════ */}
         <WaveDivider fill="#0B1121" />
         <section className="bg-navy pb-24 pt-8">
           <div className="container-max">
@@ -356,7 +461,8 @@ export const HomePage: React.FC = () => {
                 Why FAPGAME
               </p>
               <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6">
-                Not Just a Game — A Movement
+                Not Just a Game —{" "}
+                <GlitchText text="A Movement" className="text-white" />
               </h2>
               <p className="text-slate-400 max-w-2xl mx-auto text-lg">
                 We merge high-fidelity gaming with blockchain infrastructure so
@@ -404,21 +510,23 @@ export const HomePage: React.FC = () => {
                 },
               ].map((feature, index) => (
                 <Link key={index} to={feature.link} className={`group animate-on-scroll delay-${(index % 3) * 100}`}>
-                  <div className="card-premium h-full flex flex-col">
-                    <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
-                      {feature.icon}
+                  <TiltCard>
+                    <div className="card-premium h-full flex flex-col">
+                      <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                        {feature.icon}
+                      </div>
+                      <h3 className="font-bold text-lg mb-3 text-white group-hover:text-accent-light transition-colors">
+                        {feature.title}
+                      </h3>
+                      <p className="text-slate-400 text-sm leading-relaxed flex-grow">
+                        {feature.desc}
+                      </p>
+                      <div className="mt-5 text-accent-light font-medium text-sm flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                        Learn more
+                        <ChevronRight className="w-4 h-4" />
+                      </div>
                     </div>
-                    <h3 className="font-bold text-lg mb-3 text-white group-hover:text-accent-light transition-colors">
-                      {feature.title}
-                    </h3>
-                    <p className="text-slate-400 text-sm leading-relaxed flex-grow">
-                      {feature.desc}
-                    </p>
-                    <div className="mt-5 text-accent-light font-medium text-sm flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                      Learn more
-                      <ChevronRight className="w-4 h-4" />
-                    </div>
-                  </div>
+                  </TiltCard>
                 </Link>
               ))}
             </div>
@@ -437,9 +545,11 @@ export const HomePage: React.FC = () => {
               <div className="absolute inset-0 bg-navy/85 backdrop-blur-sm" />
               <div className="absolute top-0 left-1/3 w-80 h-80 bg-accent/8 rounded-full blur-[120px]" />
 
-              <div className="relative px-8 py-14 md:py-20 text-center">
+              <div ref={parallaxCta} className="relative px-8 py-14 md:py-20 text-center">
                 <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-4">
-                  Ready to Enter the World of FAPGAME?
+                  Ready to Enter the World of{" "}
+                  <GlitchText text="FAPGAME" className="text-accent-light" />
+                  ?
                 </h2>
                 <p className="text-slate-300 mb-8 max-w-lg mx-auto text-lg">
                   Join thousands of pioneers exploring Africa's future through
@@ -471,7 +581,9 @@ export const NotFoundPage: React.FC = () => {
     <Layout>
       <section className="min-h-[600px] flex items-center py-20">
         <div className="container-max text-center">
-          <h1 className="text-6xl md:text-8xl font-extrabold text-gradient mb-4">404</h1>
+          <h1 className="text-6xl md:text-8xl font-extrabold text-gradient mb-4">
+            <GlitchText text="404" className="text-gradient" />
+          </h1>
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Page Not Found</h2>
           <p className="text-lg text-slate-400 mb-8">
             The page you're looking for doesn't exist or has been moved.

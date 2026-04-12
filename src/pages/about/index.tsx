@@ -3,6 +3,11 @@ import { ROUTES } from "../../shared/constants";
 import { Link } from "react-router-dom";
 import { Gamepad2, Globe, Users, Sparkles, Shield, TrendingUp, ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "../../shared/hooks/useScrollAnimation";
+import { GlitchText } from "../../shared/components/GlitchText";
+import { TiltCard } from "../../shared/components/TiltCard";
+import { FloatingParticles } from "../../shared/components/FloatingParticles";
+import { Typewriter } from "../../shared/components/Typewriter";
+import { useParallax } from "../../shared/hooks/useParallax";
 import characterGrid from "../../assets/materials/character-grid.jpg";
 
 /* ── Wave divider ── */
@@ -16,6 +21,7 @@ const WaveDivider: React.FC<{ fill?: string }> = ({ fill = "#111927" }) => (
 
 export const AboutPage: React.FC = () => {
   const scrollRef = useScrollAnimation();
+  const parallaxHero = useParallax(0.12);
 
   return (
     <Layout>
@@ -24,8 +30,9 @@ export const AboutPage: React.FC = () => {
         <section className="relative py-28 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-hero" />
           <div className="absolute top-20 right-20 w-80 h-80 bg-accent/5 rounded-full blur-[120px] animate-float" />
+          <FloatingParticles count={25} />
           <div className="container-max relative z-10">
-            <div className="text-center max-w-3xl mx-auto">
+            <div ref={parallaxHero} className="text-center max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5 animate-on-scroll">
                 <Users className="w-4 h-4 text-accent-light" />
                 <span className="text-accent-light font-medium text-sm">About Us</span>
@@ -33,12 +40,14 @@ export const AboutPage: React.FC = () => {
               <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight animate-on-scroll delay-100">
                 The Future of
                 <br />
-                <span className="text-gradient">African Gaming</span>
+                <GlitchText text="African Gaming" className="text-gradient" />
               </h1>
               <p className="text-lg text-slate-400 leading-relaxed mb-8 animate-on-scroll delay-200">
-                FAPGAME is an innovative episodic open-world action-adventure video game
-                that draws inspiration from Africa's profound cultural heritage, abundant
-                mineral resources, and contemporary leadership challenges.
+                <Typewriter
+                  text="FAPGAME is an innovative episodic open-world action-adventure video game that draws inspiration from Africa's profound cultural heritage, abundant mineral resources, and contemporary leadership challenges."
+                  speed={20}
+                  delay={600}
+                />
               </p>
               <div className="flex flex-wrap gap-4 justify-center animate-on-scroll delay-300">
                 <Link to={ROUTES.EPISODE_ONE}>
@@ -63,7 +72,7 @@ export const AboutPage: React.FC = () => {
             <div className="text-center mb-16 animate-on-scroll">
               <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">Our Mission</p>
               <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6">
-                More Than a Game
+                <GlitchText text="More Than a Game" className="text-white" />
               </h2>
               <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
                 Modeled after the immersive gameplay of titles like Grand Theft Auto (GTA),
@@ -105,13 +114,15 @@ export const AboutPage: React.FC = () => {
                   desc: "Showcasing Africa's richness to a worldwide audience through authentic stories, traditions, and modern realities.",
                 },
               ].map((item, i) => (
-                <div key={i} className={`card-premium group animate-on-scroll delay-${(i % 3) * 100}`}>
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
-                    {item.icon}
+                <TiltCard key={i} className={`animate-on-scroll delay-${(i % 3) * 100}`}>
+                  <div className="card-premium group h-full">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent-light mb-5 group-hover:bg-accent/20 group-hover:border-accent/40 transition-all duration-300">
+                      {item.icon}
+                    </div>
+                    <h3 className="font-bold text-lg mb-2 text-white">{item.title}</h3>
+                    <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
                   </div>
-                  <h3 className="font-bold text-lg mb-2 text-white">{item.title}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">{item.desc}</p>
-                </div>
+                </TiltCard>
               ))}
             </div>
           </div>
@@ -122,13 +133,15 @@ export const AboutPage: React.FC = () => {
         <section className="bg-navy pb-24 pt-8">
           <div className="container-max">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="rounded-2xl overflow-hidden border border-navy-border/60 shadow-card animate-on-scroll max-h-[500px]">
-                <img src={characterGrid} alt="FAPGAME Characters" className="w-full h-full object-cover" />
-              </div>
+              <TiltCard className="animate-on-scroll">
+                <div className="rounded-2xl overflow-hidden border border-navy-border/60 shadow-card max-h-[500px]">
+                  <img src={characterGrid} alt="FAPGAME Characters" className="w-full h-full object-cover" />
+                </div>
+              </TiltCard>
               <div className="animate-on-scroll delay-200">
                 <p className="text-accent-light font-semibold text-sm tracking-wider uppercase mb-4">Who We Are</p>
                 <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6">
-                  Professionals & Innovators
+                  Professionals & <GlitchText text="Innovators" className="text-white" />
                 </h2>
                 <p className="text-lg text-slate-400 leading-relaxed mb-6">
                   FAPGAME is made up of professionals and innovators dedicated to African
@@ -166,7 +179,7 @@ export const AboutPage: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-primary/5" />
               <div className="relative">
                 <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-4">
-                  Ready to Enter the World of FAPGAME?
+                  Ready to Enter the World of <GlitchText text="FAPGAME" className="text-accent-light" />?
                 </h2>
                 <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8">
                   Join thousands of pioneers exploring Africa's future through gaming, blockchain, and cultural storytelling.

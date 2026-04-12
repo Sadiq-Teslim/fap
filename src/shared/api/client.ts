@@ -49,7 +49,7 @@ class ApiClient {
   private getHeaders(options?: FetchOptions): HeadersInit {
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
-      ...(options?.headers as Record<string, string> || {}),
+      ...((options?.headers as Record<string, string>) || {}),
     };
 
     if (this.accessToken && !headers.Authorization) {

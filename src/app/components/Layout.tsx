@@ -8,6 +8,11 @@ import {
 } from "../../shared/constants";
 import { useAuthStore } from "../../features/auth/store";
 import { Button } from "../../shared/ui";
+import { ScrollProgress } from "../../shared/components/ScrollProgress";
+import { CustomCursor } from "../../shared/components/CustomCursor";
+import { KonamiEaster } from "../../shared/components/KonamiEaster";
+import { SoundToggle } from "../../shared/components/SoundToggle";
+import { SmoothScroll } from "../../shared/components/SmoothScroll";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 /* ── Dropdown wrapper ── */
@@ -104,6 +109,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <div className="flex flex-col min-h-screen bg-navy">
+      <ScrollProgress />
+      <CustomCursor />
+      <KonamiEaster />
+      <SoundToggle />
+      <SmoothScroll />
       {/* Navigation */}
       <nav className="sticky top-0 z-40 bg-navy/80 backdrop-blur-xl border-b border-navy-border/60">
         <div className="container-max flex items-center justify-between py-4">
