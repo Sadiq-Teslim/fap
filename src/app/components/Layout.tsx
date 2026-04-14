@@ -239,33 +239,49 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
             <div>
               <h3 className="font-bold text-xl mb-4 text-gradient">FAPGAME</h3>
               <p className="text-sm text-slate-500 leading-relaxed">
-                An innovative open-world action-adventure video game
-                bridging virtual achievements and real-world prosperity across Africa.
+                An innovative open-world action-adventure video game bridging
+                virtual achievements and real-world prosperity across Africa.
               </p>
             </div>
 
             {/* Company Info */}
             <div>
-              <h4 className="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Company</h4>
+              <h4 className="font-semibold mb-4 text-white text-sm uppercase tracking-wider">
+                Company
+              </h4>
               <ul className="text-sm space-y-3 text-slate-500">
                 <li>
-                  <Link to={ROUTES.ABOUT} className="hover:text-accent-light transition-colors">
+                  <Link
+                    to={ROUTES.ABOUT}
+                    className="hover:text-accent-light transition-colors"
+                  >
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link to={ROUTES.PARTNERSHIP} className="hover:text-accent-light transition-colors">
+                  <Link
+                    to={ROUTES.PARTNERSHIP}
+                    className="hover:text-accent-light transition-colors"
+                  >
                     Strategic Partnership
                   </Link>
                 </li>
                 <li>
-                  <Link to={ROUTES.CONTACT} className="hover:text-accent-light transition-colors">
+                  <Link
+                    to={ROUTES.CONTACT}
+                    className="hover:text-accent-light transition-colors"
+                  >
                     Contact & Investor Relations
                   </Link>
                 </li>
-                <li><span>{COMPANY.HEADQUARTERS}</span></li>
                 <li>
-                  <a href={`mailto:${COMPANY.EMAIL}`} className="hover:text-accent-light transition-colors">
+                  <span>{COMPANY.HEADQUARTERS}</span>
+                </li>
+                <li>
+                  <a
+                    href={`mailto:${COMPANY.EMAIL}`}
+                    className="hover:text-accent-light transition-colors"
+                  >
                     {COMPANY.EMAIL}
                   </a>
                 </li>
@@ -274,20 +290,31 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
             {/* Legal */}
             <div>
-              <h4 className="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Legal</h4>
+              <h4 className="font-semibold mb-4 text-white text-sm uppercase tracking-wider">
+                Legal
+              </h4>
               <ul className="text-sm space-y-3 text-slate-500">
                 <li>
-                  <Link to={LEGAL_LINKS.PRIVACY_POLICY} className="hover:text-accent-light transition-colors">
+                  <Link
+                    to={LEGAL_LINKS.PRIVACY_POLICY}
+                    className="hover:text-accent-light transition-colors"
+                  >
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link to={LEGAL_LINKS.TERMS_OF_SERVICE} className="hover:text-accent-light transition-colors">
+                  <Link
+                    to={LEGAL_LINKS.TERMS_OF_SERVICE}
+                    className="hover:text-accent-light transition-colors"
+                  >
                     Terms of Service
                   </Link>
                 </li>
                 <li>
-                  <Link to={LEGAL_LINKS.NDPA_COMPLIANCE} className="hover:text-accent-light transition-colors">
+                  <Link
+                    to={LEGAL_LINKS.NDPA_COMPLIANCE}
+                    className="hover:text-accent-light transition-colors"
+                  >
                     NDPA Compliance
                   </Link>
                 </li>
@@ -296,7 +323,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
             {/* Social */}
             <div>
-              <h4 className="font-semibold mb-4 text-white text-sm uppercase tracking-wider">Follow Us</h4>
+              <h4 className="font-semibold mb-4 text-white text-sm uppercase tracking-wider">
+                Follow Us
+              </h4>
               <div className="flex gap-4">
                 <a
                   href={SOCIAL_LINKS.TWITTER}
@@ -305,7 +334,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                   aria-label="X (Twitter)"
                   className="w-10 h-10 rounded-lg border border-navy-border flex items-center justify-center text-slate-400 hover:text-white hover:border-accent/40 hover:bg-accent/10 transition-all duration-300"
                 >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <svg
+                    className="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                   </svg>
                 </a>
@@ -316,7 +349,15 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                   aria-label="Instagram"
                   className="w-10 h-10 rounded-lg border border-navy-border flex items-center justify-center text-slate-400 hover:text-white hover:border-accent/40 hover:bg-accent/10 transition-all duration-300"
                 >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    className="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -329,7 +370,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
                   aria-label="Facebook"
                   className="w-10 h-10 rounded-lg border border-navy-border flex items-center justify-center text-slate-400 hover:text-white hover:border-accent/40 hover:bg-accent/10 transition-all duration-300"
                 >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <svg
+                    className="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                   </svg>
                 </a>
@@ -341,12 +386,15 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
           <div className="border-t border-navy-border/60 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-slate-600">
               <p>
-                &copy; {new Date().getFullYear()} {COMPANY.NAME}. All rights reserved.
+                &copy; {new Date().getFullYear()} {COMPANY.NAME}. All rights
+                reserved.
               </p>
             </div>
             <div className="text-sm text-slate-600">
               Lead Partner:{" "}
-              <span className="text-accent-light font-medium">{COMPANY.PARTNER_NAME}</span>
+              <span className="text-accent-light font-medium">
+                {COMPANY.PARTNER_NAME}
+              </span>
             </div>
           </div>
         </div>

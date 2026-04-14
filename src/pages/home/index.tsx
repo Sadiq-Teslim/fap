@@ -200,9 +200,9 @@ const characters = [
   { img: charKing, name: "The Sovereign", role: "Ruler", desc: "Commands the throne with wisdom and strength. His decrees shape the fate of nations." },
   { img: charAngel, name: "The Guardian", role: "Protector", desc: "A celestial force standing between the people and the forces of darkness." },
   { img: charRedChief, name: "The Chief", role: "Warlord", desc: "Leads the resistance with fiery passion and unmatched combat prowess." },
-  { img: charWarrior, name: "The Warrior", role: "Champion", desc: "Bonded with the lion spirit, embodying courage and the wild heart of Africa." },
+  { img: charGreenQueen, name: "The Warrior", role: "Champion", desc: "Bonded with the lion spirit, embodying courage and the wild heart of Africa." },
   { img: charGoldNoble, name: "The Noble", role: "Strategist", desc: "Master of trade and diplomacy, weaving alliances that shift the balance of power." },
-  { img: charGreenQueen, name: "The Queen", role: "Mystic", desc: "Channels the ancestral magic of the land, bending nature to her will." },
+  { img: charWarrior, name: "The Queen", role: "Mystic", desc: "Channels the ancestral magic of the land, bending nature to her will." },
   { img: charElder, name: "The Elder", role: "Oracle", desc: "Keeper of forgotten knowledge and the ancient prophecies that guide the chosen." },
   { img: charRedKing, name: "The Conqueror", role: "Warlord", desc: "An unstoppable force of ambition, forging empires from the ashes of the old world." },
 ];
